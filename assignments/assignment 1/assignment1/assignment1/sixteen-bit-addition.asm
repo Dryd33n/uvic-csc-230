@@ -51,10 +51,21 @@
 	;Number 1 = r16(94),r17(09) = 0994 = 2452
 	;Number 2 = r18(35),r19(fd) = fd35 = 64821
 	;Result   = r4(),r5() = 106C9 = 67273
+	;Result overflows so r4(C9),r5(06) = 06C9 = 1737 / With carry bit 1737 + 2^16 = 67273
 
 ; **** BEGINNING OF "STUDENT CODE" SECTION **** 
 
+	
+    add r16, r18 ; Add the lower bytes (R16 and R18)
+	;R16 = R16 + R18	//if there is an overflow carry bit will be set 
+    mov r4, r16  ; Store the result of the lower byte addition in R4
+	;R4 = R16
 
+    
+    adc r17, r19 ; Add the upper bytes (R17 and R19) with the carry from the lower byte addition
+	;R17 = R17 + R19 + Carry Bit 
+    mov r5, r17  ; Store the result of the upper byte addition in R5
+	;R5 = R17
 
 
 
