@@ -15,7 +15,7 @@
     <Name>assignment1</Name>
     <RootNamespace>assignment1</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
-    <EntryFile>$(MSBuildProjectDirectory)\sixteen-bit-addition.asm</EntryFile>
+    <EntryFile>$(MSBuildProjectDirectory)\reset-rightmost.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
