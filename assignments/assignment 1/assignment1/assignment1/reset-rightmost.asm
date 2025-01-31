@@ -55,7 +55,7 @@
 			SBRC R1, 0					; skip following line if rightmost bit in R16 is 0
 			RJMP FindFollowing0			; go to next loop if rightmost bit in R16 is 1, ie. first rightmost set bit found
 	
-			INC R20							; increase counter reg
+			INC R20						; increase counter reg
 			LSR R1						; shift R16 rightwards filling in with 0's
 
 			CPI  R20, 0x08				; compare counter to see if it is equal to 8, i.e whole byte has been scanned
@@ -64,16 +64,16 @@
 			RJMP FindFirst1				;go back to start of loop after shiftin R1 and testing whole byte hasn't been scrolled
 
 		FindFollowing0:             ; this loop finds the following 0 after the rightmost 1 has been found
-			LSR R1					; shift R1 right filling in with 0's
-			INC R20                 ; increase counter by 1
+			LSR R1						; shift R1 right filling in with 0's
+			INC R20						; increase counter by 1
 
-			SBRC R1, 0				; skips next line is the rightmost bit is 0
-			BRNE FindFollowing0     ; go back to start of loop after shifting r1 again and rightmost bit is not 0 
+			SBRC R1, 0					; skips next line is the rightmost bit is 0
+			BRNE FindFollowing0			; go back to start of loop after shifting r1 again and rightmost bit is not 0 
 
-		ReShiftToOriginal:		; this loop shifts r01 back to its original position after shifting the rightmost bits away
-			LSL R1					; shifts r1 to the left by 1
-			DEC R20					; decrements the counter
-			BRNE ReShiftToOriginal	; once the counter has been decremented to 0 finish the program
+		ReShiftToOriginal:			; this loop shifts r01 back to its original position after shifting the rightmost bits away
+			LSL R1						; shifts r1 to the left by 1
+			DEC R20						; decrements the counter
+			BRNE ReShiftToOriginal		; once the counter has been decremented to 0 finish the program
 		 
 
 
