@@ -54,7 +54,6 @@
 	;Result overflows so r4(C9),r5(06) = 06C9 = 1737 / With carry bit 1737 + 2^16 = 67273
 
 ; **** BEGINNING OF "STUDENT CODE" SECTION **** 
-
 	
     add r16, r18 ; Add the lower bytes (R16 and R18)
 	;R16 = R16 + R18	//if there is an overflow carry bit will be set 
@@ -67,11 +66,7 @@
     mov r5, r17  ; Store the result of the upper byte addition in R5
 	;R5 = R17
 
-
-
-
 ; **** END OF "STUDENT CODE" SECTION ********** 
-
 ; ==== BEGINNING OF "DO NOT TOUCH" SECTION ====
 sixteen_bit_addition_end:
 	rjmp sixteen_bit_addition_end

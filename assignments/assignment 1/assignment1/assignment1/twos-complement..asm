@@ -41,18 +41,40 @@
     .org 0
 
 ; ==== END OF "DO NOT TOUCH" SECTION ==========
-
-	ldi R16, 0b01011100
-	; ldi R16, 0b10110110
-
-
 	; THE RESULT **MUST** END UP IN R17
+; ==== BEGINNING OF "STUDENT CODE" SECTION ==== 
 
-; **** BEGINNING OF "STUDENT CODE" SECTION **** 
+	; ldi R16, 0b10110110 ; expected output: R17 = 0b01001010
+	; ldi R16, 0b01011100 ; expected output: R17 = 0b10100100
+	; ldi R16, 0b00000000 ; expected output: R17 = 0b00000000
+	; ldi R16, 0b11111111 ; expected output: R17 = 0b00000001
+	ldi R16, 0b00110110 ; expected output: R17 = 0b11001010
+		.def input = R16
+		.def output = R17
+	
+	ldi R18, 0b11111111			; load 1111 1111 which will be used as a xor mask for later
+		.def xorMask = R18
 
-; Your solution here.
+	mov output, input			; copy input to new bit to avoid destruction of original bit
 
-; **** END OF "STUDENT CODE" SECTION ********** 
+	ShiftUntil1Found:			; this loop finds the rightmost set bit
+		SBRC output, 0				; skip next line if bit 2^0 is unset
+		RJMP ApplyMask				; if bit 2^0 is set move to next line
+
+		LSL xorMask					; shift the mask to the left
+		LSR output					; shift the number to the right
+
+		TST xorMask					; test if entire mask has been shifted away i.e no set bits in input
+		BREQ twos_complement_stop   ; end program is there are no set bits
+
+		RJMP ShiftUntil1Found
+
+	ApplyMask:
+		LSL xorMask					; shift xor mask once more
+		MOV output, input           ; copy original byte back into output byte
+		EOR output, xorMask         ; exclusive or operation on output to flip bits 
+
+; ====    END OF "STUDENT CODE" SECTION    ==== 
 
 
 
