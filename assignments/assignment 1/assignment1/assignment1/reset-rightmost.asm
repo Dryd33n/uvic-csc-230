@@ -73,7 +73,7 @@
 			INC counter					; increase counter by 1
 
 			SBRC result, 0				; skips next line is the rightmost bit is 0
-			BRNE FindFollowing0			; go back to start of loop after shifting r1 again and rightmost bit is not 0 
+			RJMP FindFollowing0			; go back to start of loop after shifting r1 again and rightmost bit is not 0 
 
 		ReShiftToOriginal:			; this loop shifts r01 back to its original position after shifting the rightmost bits away
 			LSL result					; shifts r1 to the left by 1
