@@ -28,10 +28,7 @@
 ; **** BEGINNING OF FIRST "STUDENT CODE" SECTION ****
 ; ***************************************************
 
-    ; initializion code will need to appear in this
-    ; section
-
-    ; --- SET LED's TO OUTPUT ---
+	 ; --- SET LED's TO OUTPUT ---
     ldi r17, 0b11111111
     sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
     out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
@@ -42,7 +39,6 @@
     out SPL, r16
     ldi r16, high(RAMEND)
     out SPH, r16
-    
 
 
 
@@ -58,155 +54,141 @@
 ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
 ; -----------------------------------------------------
 
-    rjmp test_part_e
-    ; Test code
+	rjmp test_part_d
+	; Test code
 
 
 test_part_a:
+	ldi r16, 0b00100001
+	rcall configure_leds
+	rcall delay_long
 
+	clr r16
+	rcall configure_leds
+	rcall delay_long
 
-    ldi r16, 0b00111111
-    rcall configure_leds
-    rcall delay_long
+	ldi r16, 0b00111000
+	rcall configure_leds
+	rcall delay_short
 
-    clr r16
-    rcall configure_leds
-    rcall delay_short
+	clr r16
+	rcall configure_leds
+	rcall delay_long
 
-    ldi r16, 0b00100000
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00010000
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00001000
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00000100
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00000010
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00000001
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00000010
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00000100
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00001000
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00010000
-    rcall configure_leds
-    rcall delay_short
-    ldi r16, 0b00100000
-    rcall configure_leds
-    rcall delay_short
+	ldi r16, 0b00100001
+	rcall configure_leds
+	rcall delay_long
 
-    clr r16
-    rcall configure_leds
+	clr r16
+	rcall configure_leds
 
-    rjmp end
+	rjmp end
 
 
 test_part_b:
-    ldi r17, 0b00101010
-    rcall slow_leds
-    ldi r17, 0b00010101
-    rcall slow_leds
-    ldi r17, 0b00101010
-    rcall slow_leds
-    ldi r17, 0b00010101
-    rcall slow_leds
+	ldi r17, 0b00101010
+	rcall slow_leds
+	ldi r17, 0b00010101
+	rcall slow_leds
+	ldi r17, 0b00101010
+	rcall slow_leds
+	ldi r17, 0b00010101
+	rcall slow_leds
 
-    rcall delay_long
-    rcall delay_long
+	rcall delay_long
+	rcall delay_long
 
-    ldi r17, 0b00101010
-    rcall fast_leds
-    ldi r17, 0b00010101
-    rcall fast_leds
-    ldi r17, 0b00101010
-    rcall fast_leds
-    ldi r17, 0b00010101
-    rcall fast_leds
-    ldi r17, 0b00101010
-    rcall fast_leds
-    ldi r17, 0b00010101
-    rcall fast_leds
-    ldi r17, 0b00101010
-    rcall fast_leds
-    ldi r17, 0b00010101
-    rcall fast_leds
+	ldi r17, 0b00101010
+	rcall fast_leds
+	ldi r17, 0b00010101
+	rcall fast_leds
+	ldi r17, 0b00101010
+	rcall fast_leds
+	ldi r17, 0b00010101
+	rcall fast_leds
+	ldi r17, 0b00101010
+	rcall fast_leds
+	ldi r17, 0b00010101
+	rcall fast_leds
+	ldi r17, 0b00101010
+	rcall fast_leds
+	ldi r17, 0b00010101
+	rcall fast_leds
 
-    rjmp end
+	rjmp end
 
 test_part_c:
-    ldi r16, 0b11111000
-    push r16
-    rcall leds_with_speed
-    pop r16
+	ldi r16, 0b11111000
+	push r16
+	rcall leds_with_speed
+	pop r16
 
-    ldi r16, 0b11011100
-    push r16
-    rcall leds_with_speed
-    pop r16
+	ldi r16, 0b11011100
+	push r16
+	rcall leds_with_speed
+	pop r16
 
-    ldi r20, 0b00100000
+	ldi r20, 0b00100000
 test_part_c_loop:
-    push r20
-    rcall leds_with_speed
-    pop r20
-    lsr r20
-    brne test_part_c_loop
+	push r20
+	rcall leds_with_speed
+	pop r20
+	lsr r20
+	brne test_part_c_loop
 
-    rjmp end
+	rjmp end
 
 
 test_part_d:
-    ldi r21, 'A'
-    push r21
-    rcall encode_letter
-    pop r21
-    push r25
-    rcall leds_with_speed
-    pop r25
+	ldi r21, 'V'
+	push r21
+	rcall encode_letter
+	pop r21
+	push r25
+	rcall leds_with_speed
+	pop r25
 
-    rcall delay_long
+	rcall delay_long
 
-    ldi r21, 'B'
-    push r21
-    rcall encode_letter
-    pop r21
-    push r25
-    rcall leds_with_speed
-    pop r25
+	ldi r21, 'A'
+	push r21
+	rcall encode_letter
+	pop r21
+	push r25
+	rcall leds_with_speed
+	pop r25
 
-    rcall delay_long
+	rcall delay_long
+
+	ldi r21, 'B'
+	push r21
+	rcall encode_letter
+	pop r21
+	push r25
+	rcall leds_with_speed
+	pop r25
+
+	rcall delay_long
 
 
-    ldi r21, 'C'
-    push r21
-    rcall encode_letter
-    pop r21
-    push r25
-    rcall leds_with_speed
-    pop r25
+	ldi r21, 'C'
+	push r21
+	rcall encode_letter
+	pop r21
+	push r25
+	rcall leds_with_speed
+	pop r25
 
-    rcall delay_long
+	rcall delay_long
 
-    rjmp end
+	rjmp end
 
 
 test_part_e:
-    ldi r25, HIGH(WORD05 << 1)
-    ldi r24, LOW(WORD05 << 1)
-    rcall display_message_signal
-    rjmp end
+	ldi r25, HIGH(WORD05 << 1)
+	ldi r24, LOW(WORD05 << 1)
+	rcall display_message_signal
+	rjmp end
 
 end:
     rjmp end
@@ -229,11 +211,10 @@ end:
 
 
 
-
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║       BEGIN CONFIGURE LED's        ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?       BEGIN CONFIGURE LED's        ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -289,9 +270,9 @@ configure_leds:
 
     ret
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║        END CONFIGURE LED's         ║                         ;                                                                                    
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?        END CONFIGURE LED's         ?                         ;                                                                                    
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 
 
@@ -304,9 +285,9 @@ configure_leds:
 
 
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║         BEGIN SLOW LED's           ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?         BEGIN SLOW LED's           ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -332,7 +313,7 @@ slow_leds:
     rcall configure_leds        ; Illuminate LED's
 
     ; --- DELAY ---
-    rcall delay_long            ; Wait approx 1s
+    ;rcall delay_long            ; Wait approx 1s
 
     ; --- DISABLE LED'S ---
     clr r16                     ; Prepare parameter for configure LED;s
@@ -340,9 +321,9 @@ slow_leds:
 
     ret
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║          END SLOW LED's            ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?          END SLOW LED's            ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 
 
@@ -355,9 +336,9 @@ slow_leds:
 
 
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║         BEGIN FAST LED's           ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?         BEGIN FAST LED's           ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -391,9 +372,9 @@ fast_leds:
 
     ret
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║          END FAST LED's            ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?          END FAST LED's            ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 
 
@@ -406,9 +387,9 @@ fast_leds:
 
 
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║       BEGIN LED'S WITH SPEED       ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?       BEGIN LED'S WITH SPEED       ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -445,9 +426,9 @@ leds_with_speed:
 	    CALL fast_leds		   ; Call fast_leds routine
 	    ret                    ; Exit out of this routine
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║       END LED'S WITH SPEED         ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?       END LED'S WITH SPEED         ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 
 
@@ -461,9 +442,9 @@ leds_with_speed:
 
 
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║        BEGIN ENCODE LETTER         ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?        BEGIN ENCODE LETTER         ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -543,9 +524,9 @@ encode_letter:
 		
 ret
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║         END ENCODE LETTER          ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?         END ENCODE LETTER          ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 
 
@@ -558,9 +539,9 @@ ret
 
 
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║       BEGIN DISPLAY MESSAGE        ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?       BEGIN DISPLAY MESSAGE        ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 ;                                                                                ;
 ;    DESCRIPTION:                                                                ;
@@ -584,7 +565,7 @@ display_message_signal:
 	mov ZH, r25 ; stroe the high byte of the address in the callee to ZH
 
 	display_word_loop:
-	    lpm R18, Z+                ; Increase the pointer traversing the word
+ 	    lpm R18, Z+                ; Increase the pointer traversing the word
 		tst R18                    ; Check if the pointer pointing to a letter in the word is null indiciated we have reached the end of the word
 		breq word_finished         ; Branch if the pointer is pointing to a null character indiciated the word is finished
 
@@ -602,10 +583,16 @@ display_message_signal:
     word_finished:
 	    ret
 ;========================================================================================;
-;                         ╔════════════════════════════════════╗                         ;
-;                         ║        END DISPLAY MESSAGE         ║                         ;                                                                            
-;                         ╚════════════════════════════════════╝                         ;
+;                         ??????????????????????????????????????                         ;
+;                         ?        END DISPLAY MESSAGE         ?                         ;                                                                            
+;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
+
+
+
+
+
+
 
 
 
@@ -623,37 +610,37 @@ display_message_signal:
 
 ; about one second
 delay_long:
-    push r16
+	push r16
 
-    ldi r16, 14
+	ldi r16, 14
 delay_long_loop:
-    rcall delay
-    dec r16
-    brne delay_long_loop
+	rcall delay
+	dec r16
+	brne delay_long_loop
 
-    pop r16
-    ret
+	pop r16
+	ret
 
 
 ; about 0.25 of a second
 delay_short:
-    push r16
+	push r16
 
-    ldi r16, 4
+	ldi r16, 4
 delay_short_loop:
-    rcall delay
-    dec r16
-    brne delay_short_loop
+	rcall delay
+	dec r16
+	brne delay_short_loop
 
-    pop r16
-    ret
+	pop r16
+	ret
 
 ; When wanting about a 1/5th of a second delay, all other
 ; code must call this function
 ;
 delay:
-    rcall delay_busywait
-    ret
+	rcall delay_busywait
+	ret
 
 
 ; This function is ONLY called from "delay", and
@@ -663,31 +650,31 @@ delay:
 ; running on a mega2560 processor.
 ;
 delay_busywait:
-    push r16
-    push r17
-    push r18
+	push r16
+	push r17
+	push r18
 
-    ldi r16, 0x08
+	ldi r16, 0x08
 delay_busywait_loop1:
-    dec r16
-    breq delay_busywait_exit
+	dec r16
+	breq delay_busywait_exit
 
-    ldi r17, 0xff
+	ldi r17, 0xff
 delay_busywait_loop2:
-    dec r17
-    breq delay_busywait_loop1
+	dec r17
+	breq delay_busywait_loop1
 
-    ldi r18, 0xff
+	ldi r18, 0xff
 delay_busywait_loop3:
-    dec r18
-    breq delay_busywait_loop2
-    rjmp delay_busywait_loop3
+	dec r18
+	breq delay_busywait_loop2
+	rjmp delay_busywait_loop3
 
 delay_busywait_exit:
-    pop r18
-    pop r17
-    pop r16
-    ret
+	pop r18
+	pop r17
+	pop r16
+	ret
 
 
 ; Some tables
@@ -695,35 +682,35 @@ delay_busywait_exit:
 ;.org 0x800
 
 PATTERNS:
-    ; LED pattern shown from left to right: "." means off, "o" means
+	; LED pattern shown from left to right: "." means off, "o" means
     ; on, 1 means long/slow, while 2 means short/fast.
-    .db "A", "..oo..", 1
-    .db "B", ".o..o.", 2
-    .db "C", "o.o...", 1
-    .db "D", ".....o", 1
-    .db "E", "oooooo", 1
-    .db "F", ".oooo.", 2
-    .db "G", "oo..oo", 2
-    .db "H", "..oo..", 2
-    .db "I", ".o..o.", 1
-    .db "J", ".....o", 2
-    .db "K", "....oo", 2
-    .db "L", "o.o.o.", 1
-    .db "M", "oooooo", 2
-    .db "N", "oo....", 1
-    .db "O", ".oooo.", 1
-    .db "P", "o.oo.o", 1
-    .db "Q", "o.oo.o", 2
-    .db "R", "oo..oo", 1
-    .db "S", "....oo", 1
-    .db "T", "..oo..", 2
-    .db "U", "o.....", 1
-    .db "V", "o.o.o.", 2
-    .db "W", "o.o...", 2
-    .db "W", "oo....", 2
-    .db "Y", "..oo..", 2
-    .db "Z", "o.....", 2
-    .db "-", "o...oo", 1   ; Just in case!
+	.db "A", "..oo..", 1
+	.db "B", ".o..o.", 2
+	.db "C", "o.o...", 1
+	.db "D", ".....o", 1
+	.db "E", "oooooo", 1
+	.db "F", ".oooo.", 2
+	.db "G", "oo..oo", 2
+	.db "H", "..oo..", 2
+	.db "I", ".o..o.", 1
+	.db "J", ".....o", 2
+	.db "K", "....oo", 2
+	.db "L", "o.o.o.", 1
+	.db "M", "oooooo", 2
+	.db "N", "oo....", 1
+	.db "O", ".oooo.", 1
+	.db "P", "o.oo.o", 1
+	.db "Q", "o.oo.o", 2
+	.db "R", "oo..oo", 1
+	.db "S", "....oo", 1
+	.db "T", "..oo..", 2
+	.db "U", "o.....", 1
+	.db "V", "o.o.o.", 2
+	.db "W", "o.o...", 2
+	.db "W", "oo....", 2
+	.db "Y", "..oo..", 2
+	.db "Z", "o.....", 2
+	.db "-", "o...oo", 1   ; Just in case!
 
 WORD00: .db "CSC230", 0, 0
 WORD01: .db "ALL", 0

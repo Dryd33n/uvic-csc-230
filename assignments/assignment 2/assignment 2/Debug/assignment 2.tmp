@@ -1,18 +1,18 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega2560"</DEVICE>
- <WORKING_DIR>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\Dryden\Desktop\assignment 2\assignment 2\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m2560def.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\Debug\assignment 2.obj</FILE>
+  <FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\Debug\assignment 2.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>assignment 2.hex</FILE>
@@ -22,35 +22,43 @@
   <FILE>assignment 2.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <test_part_b><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>117</LINE></test_part_b>
-  <test_part_a><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>66</LINE></test_part_a>
-  <configure_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>226</LINE></configure_leds>
-  <delay_long><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>312</LINE></delay_long>
-  <delay_short><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>326</LINE></delay_short>
-  <end><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>212</LINE></end>
-  <slow_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>259</LINE></slow_leds>
-  <fast_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>268</LINE></fast_leds>
-  <test_part_c><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>149</LINE></test_part_c>
-  <leds_with_speed><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>278</LINE></leds_with_speed>
-  <test_part_c_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>161</LINE></test_part_c_loop>
-  <test_part_d><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>171</LINE></test_part_d>
-  <encode_letter><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>292</LINE></encode_letter>
-  <test_part_e><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>206</LINE></test_part_e>
-  <WORD05><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>420</LINE></WORD05>
-  <display_message_signal><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>296</LINE></display_message_signal>
-  <delay_long_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>316</LINE></delay_long_loop>
-  <delay><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>341</LINE></delay>
-  <delay_short_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>330</LINE></delay_short_loop>
-  <delay_busywait><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>352</LINE></delay_busywait>
-  <delay_busywait_loop1><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>358</LINE></delay_busywait_loop1>
-  <delay_busywait_exit><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>373</LINE></delay_busywait_exit>
-  <delay_busywait_loop2><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>363</LINE></delay_busywait_loop2>
-  <delay_busywait_loop3><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>368</LINE></delay_busywait_loop3>
-  <PATTERNS><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>384</LINE></PATTERNS>
-  <WORD00><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>415</LINE></WORD00>
-  <WORD01><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>416</LINE></WORD01>
-  <WORD02><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>417</LINE></WORD02>
-  <WORD03><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>418</LINE></WORD03>
-  <WORD04><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>419</LINE></WORD04>
+  <test_part_d><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>142</LINE></test_part_d>
+  <test_part_a><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>61</LINE></test_part_a>
+  <configure_leds><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>236</LINE></configure_leds>
+  <delay_long><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>612</LINE></delay_long>
+  <delay_short><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>626</LINE></delay_short>
+  <end><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>193</LINE></end>
+  <test_part_b><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>88</LINE></test_part_b>
+  <slow_leds><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>308</LINE></slow_leds>
+  <fast_leds><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>359</LINE></fast_leds>
+  <test_part_c><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>120</LINE></test_part_c>
+  <leds_with_speed><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>410</LINE></leds_with_speed>
+  <test_part_c_loop><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>132</LINE></test_part_c_loop>
+  <encode_letter><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>467</LINE></encode_letter>
+  <test_part_e><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>187</LINE></test_part_e>
+  <WORD05><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>720</LINE></WORD05>
+  <display_message_signal><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>562</LINE></display_message_signal>
+  <fast><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>425</LINE></fast>
+  <PATTERNS><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>684</LINE></PATTERNS>
+  <table_row_traversal><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>486</LINE></table_row_traversal>
+  <proccess_pattern><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>501</LINE></proccess_pattern>
+  <pattern_traversal><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>504</LINE></pattern_traversal>
+  <not_set><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>511</LINE></not_set>
+  <proccess_delay><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>518</LINE></proccess_delay>
+  <display_word_loop><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>567</LINE></display_word_loop>
+  <word_finished><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>583</LINE></word_finished>
+  <delay_long_loop><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>616</LINE></delay_long_loop>
+  <delay><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>641</LINE></delay>
+  <delay_short_loop><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>630</LINE></delay_short_loop>
+  <delay_busywait><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>652</LINE></delay_busywait>
+  <delay_busywait_loop1><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>658</LINE></delay_busywait_loop1>
+  <delay_busywait_exit><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>673</LINE></delay_busywait_exit>
+  <delay_busywait_loop2><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>663</LINE></delay_busywait_loop2>
+  <delay_busywait_loop3><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>668</LINE></delay_busywait_loop3>
+  <WORD00><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>715</LINE></WORD00>
+  <WORD01><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>716</LINE></WORD01>
+  <WORD02><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>717</LINE></WORD02>
+  <WORD03><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>718</LINE></WORD03>
+  <WORD04><FILE>C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>719</LINE></WORD04>
  </LABELS>
 </ASSEMBLER_INFO>

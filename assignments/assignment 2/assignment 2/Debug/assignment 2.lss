@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.8  C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm Thu Feb 13 18:46:46 2025
+AVRASM ver. 2.2.8  C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm Fri Feb 14 01:31:55 2025
 
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
-C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm(23): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
-C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm(23): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m2560def.inc'
+C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm(23): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m2560def.inc'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m2560def.inc'
+C:\Users\Dryden\Desktop\assignment 2\assignment 2\a2-signalling.asm(23): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m2560def.inc'
                                  
                                  ; a2-signalling.asm
                                  
@@ -1916,22 +1916,17 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; **** BEGINNING OF FIRST "STUDENT CODE" SECTION ****
                                  ; ***************************************************
                                  
-                                 	; initializion code will need to appear in this
-                                     ; section
+                                 	 ; --- SET LED's TO OUTPUT ---
+000000 ef1f                          ldi r17, 0b11111111
+000001 9310 010a                     sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
+000003 b914                          out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
+000004 2711                          clr r17
                                  
-                                 
-                                 	; --- SET LED's TO OUTPUT ---
-000000 ef1f                      	ldi r17, 0b11111111
-000001 9310 010a                 	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
-000003 b914                      	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
-000004 2711                      	clr r17
-                                 
-                                 	; --- INITIALIZE STACK POINTER ---
-000005 ef0f                      	ldi r16, low(RAMEND)
-000006 bf0d                      	out SPL, r16
-000007 e201                      	ldi r16, high(RAMEND)
-000008 bf0e                      	out SPH, r16
-                                 	
+                                     ; --- INITIALIZE STACK POINTER ---
+000005 ef0f                          ldi r16, low(RAMEND)
+000006 bf0d                          out SPL, r16
+000007 e201                          ldi r16, high(RAMEND)
+000008 bf0e                          out SPH, r16
                                  
                                  
                                  
@@ -1947,158 +1942,144 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
                                  ; -----------------------------------------------------
                                  
-000009 c02a                      	rjmp test_part_b
+000009 c03c                      	rjmp test_part_d
                                  	; Test code
                                  
                                  
                                  test_part_a:
-                                 
-                                 
-00000a e30f                      	ldi r16, 0b00111111
-00000b d070                      	rcall configure_leds
-00000c d092                      	rcall delay_long
+00000a e201                      	ldi r16, 0b00100001
+00000b d060                      	rcall configure_leds
+00000c d0b4                      	rcall delay_long
                                  
 00000d 2700                      	clr r16
-00000e d06d                      	rcall configure_leds
-00000f d096                      	rcall delay_short
+00000e d05d                      	rcall configure_leds
+00000f d0b1                      	rcall delay_long
                                  
-000010 e200                      	ldi r16, 0b00100000
-000011 d06a                      	rcall configure_leds
-000012 d093                      	rcall delay_short
-000013 e100                      	ldi r16, 0b00010000
-000014 d067                      	rcall configure_leds
-000015 d090                      	rcall delay_short
-000016 e008                      	ldi r16, 0b00001000
-000017 d064                      	rcall configure_leds
-000018 d08d                      	rcall delay_short
-000019 e004                      	ldi r16, 0b00000100
-00001a d061                      	rcall configure_leds
-00001b d08a                      	rcall delay_short
-00001c e002                      	ldi r16, 0b00000010
-00001d d05e                      	rcall configure_leds
-00001e d087                      	rcall delay_short
-00001f e001                      	ldi r16, 0b00000001
-000020 d05b                      	rcall configure_leds
-000021 d084                      	rcall delay_short
-000022 e002                      	ldi r16, 0b00000010
-000023 d058                      	rcall configure_leds
-000024 d081                      	rcall delay_short
-000025 e004                      	ldi r16, 0b00000100
-000026 d055                      	rcall configure_leds
-000027 d07e                      	rcall delay_short
-000028 e008                      	ldi r16, 0b00001000
-000029 d052                      	rcall configure_leds
-00002a d07b                      	rcall delay_short
-00002b e100                      	ldi r16, 0b00010000
-00002c d04f                      	rcall configure_leds
-00002d d078                      	rcall delay_short
-00002e e200                      	ldi r16, 0b00100000
-00002f d04c                      	rcall configure_leds
-000030 d075                      	rcall delay_short
+000010 e308                      	ldi r16, 0b00111000
+000011 d05a                      	rcall configure_leds
+000012 d0b5                      	rcall delay_short
                                  
-000031 2700                      	clr r16
-000032 d049                      	rcall configure_leds
+000013 2700                      	clr r16
+000014 d057                      	rcall configure_leds
+000015 d0ab                      	rcall delay_long
                                  
-000033 c047                      	rjmp end
+000016 e201                      	ldi r16, 0b00100001
+000017 d054                      	rcall configure_leds
+000018 d0a8                      	rcall delay_long
+                                 
+000019 2700                      	clr r16
+00001a d051                      	rcall configure_leds
+                                 
+00001b c04f                      	rjmp end
                                  
                                  
                                  test_part_b:
-000034 e21a                      	ldi r17, 0b00101010
-000035 d05a                      	rcall slow_leds
-000036 e115                      	ldi r17, 0b00010101
-000037 d058                      	rcall slow_leds
-000038 e21a                      	ldi r17, 0b00101010
-000039 d056                      	rcall slow_leds
-00003a e115                      	ldi r17, 0b00010101
-00003b d054                      	rcall slow_leds
+00001c e21a                      	ldi r17, 0b00101010
+00001d d062                      	rcall slow_leds
+00001e e115                      	ldi r17, 0b00010101
+00001f d060                      	rcall slow_leds
+000020 e21a                      	ldi r17, 0b00101010
+000021 d05e                      	rcall slow_leds
+000022 e115                      	ldi r17, 0b00010101
+000023 d05c                      	rcall slow_leds
                                  
-00003c d062                      	rcall delay_long
-00003d d061                      	rcall delay_long
+000024 d09c                      	rcall delay_long
+000025 d09b                      	rcall delay_long
                                  
-00003e e21a                      	ldi r17, 0b00101010
-00003f d056                      	rcall fast_leds
-000040 e115                      	ldi r17, 0b00010101
-000041 d054                      	rcall fast_leds
-000042 e21a                      	ldi r17, 0b00101010
-000043 d052                      	rcall fast_leds
-000044 e115                      	ldi r17, 0b00010101
-000045 d050                      	rcall fast_leds
-000046 e21a                      	ldi r17, 0b00101010
-000047 d04e                      	rcall fast_leds
-000048 e115                      	ldi r17, 0b00010101
-000049 d04c                      	rcall fast_leds
-00004a e21a                      	ldi r17, 0b00101010
-00004b d04a                      	rcall fast_leds
-00004c e115                      	ldi r17, 0b00010101
-00004d d048                      	rcall fast_leds
+000026 e21a                      	ldi r17, 0b00101010
+000027 d05d                      	rcall fast_leds
+000028 e115                      	ldi r17, 0b00010101
+000029 d05b                      	rcall fast_leds
+00002a e21a                      	ldi r17, 0b00101010
+00002b d059                      	rcall fast_leds
+00002c e115                      	ldi r17, 0b00010101
+00002d d057                      	rcall fast_leds
+00002e e21a                      	ldi r17, 0b00101010
+00002f d055                      	rcall fast_leds
+000030 e115                      	ldi r17, 0b00010101
+000031 d053                      	rcall fast_leds
+000032 e21a                      	ldi r17, 0b00101010
+000033 d051                      	rcall fast_leds
+000034 e115                      	ldi r17, 0b00010101
+000035 d04f                      	rcall fast_leds
                                  
-00004e c02c                      	rjmp end
+000036 c034                      	rjmp end
                                  
                                  test_part_c:
-00004f ef08                      	ldi r16, 0b11111000
-000050 930f                      	push r16
-000051 d04a                      	rcall leds_with_speed
-000052 910f                      	pop r16
+000037 ef08                      	ldi r16, 0b11111000
+000038 930f                      	push r16
+000039 d051                      	rcall leds_with_speed
+00003a 910f                      	pop r16
                                  
-000053 ed0c                      	ldi r16, 0b11011100
-000054 930f                      	push r16
-000055 d046                      	rcall leds_with_speed
-000056 910f                      	pop r16
+00003b ed0c                      	ldi r16, 0b11011100
+00003c 930f                      	push r16
+00003d d04d                      	rcall leds_with_speed
+00003e 910f                      	pop r16
                                  
-000057 e240                      	ldi r20, 0b00100000
+00003f e240                      	ldi r20, 0b00100000
                                  test_part_c_loop:
-000058 934f                      	push r20
-000059 d042                      	rcall leds_with_speed
-00005a 914f                      	pop r20
-00005b 9546                      	lsr r20
-00005c f7d9                      	brne test_part_c_loop
+000040 934f                      	push r20
+000041 d049                      	rcall leds_with_speed
+000042 914f                      	pop r20
+000043 9546                      	lsr r20
+000044 f7d9                      	brne test_part_c_loop
                                  
-00005d c01d                      	rjmp end
+000045 c025                      	rjmp end
                                  
                                  
                                  test_part_d:
-00005e e451                      	ldi r21, 'A'
+000046 e556                      	ldi r21, 'V'
+000047 935f                      	push r21
+000048 d04e                      	rcall encode_letter
+000049 915f                      	pop r21
+00004a 939f                      	push r25
+00004b d03f                      	rcall leds_with_speed
+00004c 919f                      	pop r25
+                                 
+00004d d073                      	rcall delay_long
+                                 
+00004e e451                      	ldi r21, 'A'
+00004f 935f                      	push r21
+000050 d046                      	rcall encode_letter
+000051 915f                      	pop r21
+000052 939f                      	push r25
+000053 d037                      	rcall leds_with_speed
+000054 919f                      	pop r25
+                                 
+000055 d06b                      	rcall delay_long
+                                 
+000056 e452                      	ldi r21, 'B'
+000057 935f                      	push r21
+000058 d03e                      	rcall encode_letter
+000059 915f                      	pop r21
+00005a 939f                      	push r25
+00005b d02f                      	rcall leds_with_speed
+00005c 919f                      	pop r25
+                                 
+00005d d063                      	rcall delay_long
+                                 
+                                 
+00005e e453                      	ldi r21, 'C'
 00005f 935f                      	push r21
-000060 d03c                      	rcall encode_letter
+000060 d036                      	rcall encode_letter
 000061 915f                      	pop r21
 000062 939f                      	push r25
-000063 d038                      	rcall leds_with_speed
+000063 d027                      	rcall leds_with_speed
 000064 919f                      	pop r25
                                  
-000065 d039                      	rcall delay_long
+000065 d05b                      	rcall delay_long
                                  
-000066 e452                      	ldi r21, 'B'
-000067 935f                      	push r21
-000068 d034                      	rcall encode_letter
-000069 915f                      	pop r21
-00006a 939f                      	push r25
-00006b d030                      	rcall leds_with_speed
-00006c 919f                      	pop r25
-                                 
-00006d d031                      	rcall delay_long
-                                 
-                                 
-00006e e453                      	ldi r21, 'C'
-00006f 935f                      	push r21
-000070 d02c                      	rcall encode_letter
-000071 915f                      	pop r21
-000072 939f                      	push r25
-000073 d028                      	rcall leds_with_speed
-000074 919f                      	pop r25
-                                 
-000075 d029                      	rcall delay_long
-                                 
-000076 c004                      	rjmp end
+000066 c004                      	rjmp end
                                  
                                  
                                  test_part_e:
-000077 e092                      	ldi r25, HIGH(WORD05 << 1)
-000078 e788                      	ldi r24, LOW(WORD05 << 1)
-000079 d024                      	rcall display_message_signal
-00007a c000                      	rjmp end
+000067 e092                      	ldi r25, HIGH(WORD05 << 1)
+000068 eb8c                      	ldi r24, LOW(WORD05 << 1)
+000069 d048                      	rcall display_message_signal
+00006a c000                      	rjmp end
                                  
                                  end:
-00007b cfff                          rjmp end
+00006b cfff                          rjmp end
                                  
                                  
                                  
@@ -2111,62 +2092,232 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  
                                  
                                  
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?       BEGIN CONFIGURE LED's        ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Configures and sets the output of LED's connected via PORTL &     ;
+                                 ;              PORTB by interpreting R16 binary's representation to determine    ;
+                                 ;              which LED's to turn on/off.                                       ;
+                                 ;                                                                                ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - R16   (Where the 6 rightmost bits represents led's to turn on)    ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+                                 ;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - R17   (Scratch Register to build outputs for PORTB & PORTL)       ;
+                                 ;                                                                                ;
+                                 ;================================================================================;
                                  configure_leds:
-00007c 2711                      	clr r17
+                                     ; --- INITIALIZATION ---
+00006c 2711                          clr r17                        ; Precautionary measure before performing operations
+                                 
+                                     ; --- PORTL MAPPING ---
+00006d fd05                          sbrc r16, 5                    ; Test for LED 6 off, if off skip following instruction
+00006e 6810                              ori r17, 0b10000000        ; Add bit configuration for [ ][ ][ ][ ][ ][*] to mask
+                                 
+00006f fd04                          sbrc r16, 4                    ; Test for LED 5 off, if off skip following instruction
+000070 6210                              ori r17, 0b00100000        ; Add bit configuration for [ ][ ][ ][ ][*][ ] to mask
+                                 
+000071 fd03                          sbrc r16, 3                    ; Test for LED 4 off, if off skip following instruction
+000072 6018                              ori r17, 0b00001000        ; Add bit configuration for [ ][ ][ ][*][ ][ ] to mask
+                                 
+000073 fd02                          sbrc r16, 2                    ; Test for LED 3 off, if off skip following instruction
+000074 6012                              ori r17, 0b00000010        ; Add bit configuration for [ ][ ][*][ ][ ][ ] to mask
+                                 
+                                     ; --- PORTL OUTPUT ---
+000075 9310 010b                     sts PORTL, r17
+000077 2711                          clr r17
+                                     
+                                     ; --- PORTB MAPPING ---
+000078 fd01                          sbrc r16, 1                    ; Test for LED 2 off, if off skip following instruction
+000079 6018                              ori r17, 0b00001000        ; Add bit configuration for [ ][*][ ][ ][ ][ ] to mask
+                                 
+00007a fd00                          sbrc r16, 0                    ; Test for LED 1 off, if off skip following instruction
+00007b 6012                              ori r17, 0b00000010        ; Add bit configuration for [*][ ][ ][ ][*][ ] to mask
+                                 
+                                     ; --- PORTL OUTPUT --- 
+00007c b915                          out PORTB, r17
+                                     
+                                     ; --- CLEANUP --- 
+00007d 2711                          clr r17
+00007e 2700                          clr r16
+                                 
+00007f 9508                          ret
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?        END CONFIGURE LED's         ?                         ;                                                                                    
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
                                  
                                  
-                                 	; check each bit with sbrc in r16, i.e bits 5,4,3,2,1,0
                                  
-                                 	; --- PORTL MAPPING ---
-00007d fd05                      	sbrc r16, 5
-00007e 6810                      	ori r17, 0b10000000
-00007f fd04                      	sbrc r16, 4
-000080 6210                      	ori r17, 0b00100000
-000081 fd03                      	sbrc r16, 3
-000082 6018                      	ori r17, 0b00001000
-000083 fd02                      	sbrc r16, 2
-000084 6012                      	ori r17, 0b00000010
                                  
-000085 9310 010b                 	sts PORTL, r17
-000087 2711                      	clr r17
-                                 	
-                                 	; --- PORTB MAPPING ---
-000088 fd01                      	sbrc r16, 1
-000089 6018                      	ori r17, 0b00001000
-00008a fd00                      	sbrc r16, 0
-00008b 6012                      	ori r17, 0b00000010
                                  
-00008c b915                      	out PORTB, r17
-                                 	
-                                 	; --- CLEANUP --- 
-00008d 2711                      	clr r17
-00008e 2700                      	clr r16
                                  
-00008f 9508                      	ret
                                  
+                                 
+                                 
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?         BEGIN SLOW LED's           ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Calls configure LED's twice. Initially turns LED's on based on    ;
+                                 ;              contents of R17, then waits a delay_long and turns of the LED's   ;
+                                 ;                                                                                ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - R17   (Where the 6 rightmost bits represents LED's to turn on)    ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+                                 ;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - R16    (Used as a parameter when calling configure LED's)         ;
+                                 ;                                                                                ;
+                                 ;================================================================================
                                  slow_leds:
-000090 2f01                      	mov r16, r17
-000091 dfea                      	rcall configure_leds
-000092 d00c                      	rcall delay_long
-000093 2700                      	clr r16
-000094 dfe7                      	rcall configure_leds
-000095 9508                      	ret
+                                     ; --- INITIALIZATION ---
+000080 2f01                          mov r16, r17                ; Prepare parameter for configure LED's
+                                 
+                                     ; --- TURN ON LED'S ---
+000081 dfea                          rcall configure_leds        ; Illuminate LED's
+                                 
+                                     ; --- DELAY ---
+                                     ;rcall delay_long            ; Wait approx 1s
+                                 
+                                     ; --- DISABLE LED'S ---
+000082 2700                          clr r16                     ; Prepare parameter for configure LED;s
+000083 dfe8                          rcall configure_leds        ; Disable all LED'S
+                                 
+000084 9508                          ret
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?          END SLOW LED's            ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
                                  
                                  
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?         BEGIN FAST LED's           ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Calls configure LED's twice. Initially turns LED's on based on    ;
+                                 ;              contents of R17, then waits a delay_short and turns of the LED's  ;
+                                 ;                                                                                ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - R17   (Where the 6 rightmost bits represents LED's to turn on)    ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+                                 ;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - R16    (Used as a parameter when calling configure LED's)         ;
+                                 ;                                                                                ;
+                                 ;================================================================================;
                                  fast_leds:
-000096 2f01                      	mov r16, r17
-000097 dfe4                      	rcall configure_leds
-000098 d00d                      	rcall delay_short
-000099 2700                      	clr r16
-00009a dfe1                      	rcall configure_leds
-00009b 9508                      	ret
+                                     ; --- INITIALIZATION ---
+000085 2f01                          mov r16, r17                ; Prepare parameter for configure LED's
+                                 
+                                     ; --- TURN ON LED'S ---
+000086 dfe5                          rcall configure_leds        ; Illuminate LED's
+                                 
+                                     ; --- DELAY ---
+000087 d040                          rcall delay_short            ; Wait approx 0.25s
+                                 
+                                     ; --- DISABLE LED'S ---
+000088 2700                          clr r16                     ; Prepare parameter for configure LED's
+000089 dfe2                          rcall configure_leds        ; Disable all LED'S
+                                 
+00008a 9508                          ret
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?          END FAST LED's            ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
                                  
                                  
                                  
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?       BEGIN LED'S WITH SPEED       ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Controls the 6 LED's at different speed based on parameter passed ;
+                                 ;              to the stack.                                                     ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - 1 Byte Pushed to Stack (Which LED's and what speed information)   ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+                                 ;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - R17    (Used as a parameter when calling fast&slow_led)           ;
+                                 ;            - R16    (Used to store parameter passed to stack aswell as mask)   ;
+                                 ;                                                                                ;
+                                 ;================================================================================;
                                  leds_with_speed:
-                                 	
-                                 	
-00009c 9508                      	ret
+                                 	; --- INITIALIZATION ---
+00008b b7de                      	in YH, SPH                 ; Store High Stack Pointer from SRAM Stack Region to Y-High
+00008c b7cd                      	in YL, SPL                 ; Store Low Stack Pointer from SRAM Stack Region to Y-Low
+00008d 810c                      	ldd R16, Y+4               ; Read function parameter from stack and store in R16
+00008e 2f10                      	mov R17, R16               ; Save stack parameter into R17 for use as a parameter in slow_leds & fast_leds
+                                 
+                                 	; --- BRANCHING ---
+00008f 7c00                      	andi R16, 0b11000000       ; Perform and and mask with the function parameter, result will be 0 if slow configuration is used
+000090 f019                      	breq fast                  ; If result of mask was 0, slow configuration is being used, therefore branch to "slow"
+                                 
+                                 	; --- SLOW LED BRANCH ---
+000091 940e 0080                 	    CALL slow_leds        ; Call slow_leds routine
+000093 9508                      	    ret                    ; Exit out of this routine
+                                 	; --- FAST LED BRANCH ---
+                                 	fast:
+000094 940e 0085                 	    CALL fast_leds		   ; Call fast_leds routine
+000096 9508                      	    ret                    ; Exit out of this routine
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?       END LED'S WITH SPEED         ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
                                  
                                  
                                  ; Note -- this function will only ever be tested
@@ -2177,12 +2328,161 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; in which case it terminates with a code not found
                                  ; for any legal letter.
                                  
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?        BEGIN ENCODE LETTER         ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Controls the 6 LED's at different speed based on parameter passed ;
+                                 ;              to the stack.                                                     ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - 1 Byte Pushed to Stack (Which LED's and what speed information)   ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - R25   (A byte that is valid to execute with LED's with speed)     ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - Y     (Stack Pointer to retrieve parameter)                       ;
+                                 ;            - R16   (Register to store parameter pointed to by Y)               ;
+                                 ;            - Z     (Pointer which traverses through .db table)                 ;
+                                 ;            - R17   (Used to hold information loaded from table)                ;
+                                 ;            - R18   (Used as a counter while traversin pattern)                 ;
+                                 ;                                                                                ;
+                                 ;================================================================================;
                                  encode_letter:
-00009d 9508                      	ret
+                                     ; --- INITIALIZATION ---
+                                 ; <- Store Stack Pointer in Y then store Parameter from stack pointer in R16 ->
+000097 b7de                      	in YH, SPH                           ; Store high stack pointer in y-high
+000098 b7cd                      	in YL, SPL                           ; Store low stack pointer in y-low
+000099 810c                      	ldd R16, Y+4                         ; Store value / character pushed to stack in R16
+                                 ; <- Store Pointer to start of Table in Z ->
+00009a e0f1                      	ldi ZH, high(PATTERNS<<1)            ; Stores the High Byte of the pointer to the start of the table in z-high
+00009b ece4                      	ldi ZL, low(PATTERNS<<1)             ; Stores the Low Byte of the pointer to the start of the table in z-low
+                                 ; <- Ensure output register is clear ->
+00009c 2799                      	clr R25
+                                 
+                                 	; --- TABLE LOOKUP LOOP ---
+                                 	;	This loop traverses the pattern table one row at a time, comparing each
+                                 	;   letter to the parameter stored in R16. It traverses the table by incrementing
+                                 	;   the pointer Z which starts out pointing to the first piece of data in the table,
+                                 	;   by incrementing the pointer by 8, which is the length of one row, we traverse down
+                                 	;   to the next letter stored at the start of the row, once the letter pointed to by z
+                                 	;   matches the parameter we branch out of the loop. 
+                                 	table_row_traversal:
+00009d 9114                      	    lpm R17, Z                       ; Z is a pointer to start of table, this loads the first item in table which is the letter
+00009e 1701                      	    cp R16, R17                      ; Compare letter from table (R17) with letter from parameter (R16)
+00009f f011                      	    breq proccess_pattern            ; If the letter from the table and the letter from the parameter match, proceed to next step
+0000a0 9638                      		adiw Z,8                         ; Increase table pointer by 8 bytes since table row is [1 byte (letter) + 6 bytes (pattern) + 1 byte (delay code)] = 8 bytes
+0000a1 cffb                      		rjmp table_row_traversal         ; Go back to top of loop
+                                 	
+                                 
+                                 	; --- PROCCESS PATTERN LOOP ---
+                                 	;   This loop increments are table pointer Z each iteration traversing through the pattern in the table
+                                 	;   while each iteration checking if the character in the pattern pointed to by Z is an 'o' or not. If it 
+                                 	;   is we set the rmb of our output to 1. We then LSL our output to the left each iteration, thus if we never
+                                 	;   encounter a 'o' it will just shift left leaving us blank space, if we ecounter 'o' everytime it will shift
+                                 	;   left making the 6 rmb's set. Once we have traversed the entire pattern branch out of the loop
+                                 	; <- Loop Initialization ->
+                                 	proccess_pattern:
+0000a2 e026                      		ldi R18, 0x06
+                                 			.def counter = R18
+                                     pattern_traversal:
+0000a3 9631                      		adiw Z,1                         ; Increase table pointer by 1, we do this at the start of the loop since currently it is pointing to the first column containing the letter
+0000a4 9114                      		lpm R17, Z						 ; Load the letter from the pattern pointed to by Z into R17
+0000a5 361f                      		cpi R17, 0x6f                    ; Checks if the current letter of the pattern is 'o'
+0000a6 f409                      		brne not_set                     ; Branch if the letter of the pattern is not 'o' indicating the LED should not be set
+0000a7 6091                      			ori R25, 0b00000001          ; Since R25 is clr'd and we lsl it later in the loop this will always set the first bit
+                                 		
+                                 		not_set:                         ; If the current letter in patern pointed to by Z is not 'o' we do not set any bits
+0000a8 952a                      		dec counter                      ; Decrease counter by 1
+0000a9 f011                      		breq proccess_delay              ; If the counter has reached 0, meaning we have traversed the entire pattern then branch out of the loop
+0000aa 0f99                      		lsl R25                          ; Shift our current output to the left creating blank space on the left
+                                 		
+0000ab cff7                      		rjmp pattern_traversal           ; Continuing traversing the pattern
+                                 
+                                 	proccess_delay:
+0000ac 9631                      		adiw Z,1                         ; Increment our table pointer Z by 1 so that it is now pointing to the delay code
+0000ad 9114                      		lpm R17, Z                       ; Load the delay code pointed to by Z into R17
+0000ae 951a                      		dec R17                          ; Decrement R17, if it is 1 it will now be 0 and if it is 2 it will now be 1 which lets us test the bit
+0000af ff10                      		sbrs R17, 0                      ; We do not set the 2 lmb's if R17's rmb is set, i.e the delay code is 2
+0000b0 6c90                      		    ori R25, 0b11000000          ; If R17's rmb is clear, it means delay code was 1 so we set the 2 lmb's
+                                 		
+0000b1 9508                      ret
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?         END ENCODE LETTER          ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
                                  
                                  
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?       BEGIN DISPLAY MESSAGE        ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 ;                                                                                ;
+                                 ;    DESCRIPTION:                                                                ;
+                                 ;            - Displays a word pointed to by R24:R25 using signaling on LED's    ;
+                                 ;    PARAMETERS:                                                                 ;
+                                 ;            - R25 High byte of pointer pointing to start of word                ;
+                                 ;            - R24 Low byte of pointer pointing to start of word                 ;
+                                 ;                                                                                ;        
+                                 ;    OUTPUT:                                                                     ;
+                                 ;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+                                 ;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+                                 ;                                                                                ;
+                                 ;    REGISTERS:                                                                  ;
+                                 ;            - Z     (A pointer used to traverse through the word)               ;
+                                 ;            - R18   (Used to store letters accessed through address in Z)       ;
+                                 ;                                                                                ;
+                                 ;================================================================================;
                                  display_message_signal:
-00009e 9508                      	ret
+                                     ; --- INITIALIZATION ---
+0000b2 2fe8                      	mov ZL, r24 ; store the low byte of the address in the callee to ZL
+0000b3 2ff9                      	mov ZH, r25 ; stroe the high byte of the address in the callee to ZH
+                                 
+                                 	display_word_loop:
+0000b4 9125                       	    lpm R18, Z+                ; Increase the pointer traversing the word
+0000b5 2322                      		tst R18                    ; Check if the pointer pointing to a letter in the word is null indiciated we have reached the end of the word
+0000b6 f049                      		breq word_finished         ; Branch if the pointer is pointing to a null character indiciated the word is finished
+                                 
+                                 		; --- ENCODE LETTER ---
+0000b7 932f                      		push R18                   ; Add R18 to the stack as a parameter for encode letter
+0000b8 940e 0097                 		CALL encode_letter        ; Encode the letter  
+0000ba 912f                      		pop R18                    ; Remove R18 from the stack to avoid polluting the stack
+                                 		; --- DISPLAY LETTER ---
+0000bb 939f                      		push R25                   ; Encode letter stores the result in R25 so push into stack as a parameter for display letter
+0000bc 940e 008b                 		CALL leds_with_speed      ; Display the letter
+0000be 919f                      		pop R25                    ; Remove from stack to avoid polluting the stack
+                                 
+0000bf cff4                      		RJMP display_word_loop     ; Go back to the start of the loop
+                                 
+                                     word_finished:
+0000c0 9508                      	    ret
+                                 ;========================================================================================;
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;                         ?        END DISPLAY MESSAGE         ?                         ;                                                                            
+                                 ;                         ??????????????????????????????????????                         ;
+                                 ;========================================================================================;
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
                                  
                                  
                                  ; ****************************************************
@@ -2198,37 +2498,37 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  
                                  ; about one second
                                  delay_long:
-00009f 930f                      	push r16
+0000c1 930f                      	push r16
                                  
-0000a0 e00e                      	ldi r16, 14
+0000c2 e00e                      	ldi r16, 14
                                  delay_long_loop:
-0000a1 d00b                      	rcall delay
-0000a2 950a                      	dec r16
-0000a3 f7e9                      	brne delay_long_loop
+0000c3 d00b                      	rcall delay
+0000c4 950a                      	dec r16
+0000c5 f7e9                      	brne delay_long_loop
                                  
-0000a4 910f                      	pop r16
-0000a5 9508                      	ret
+0000c6 910f                      	pop r16
+0000c7 9508                      	ret
                                  
                                  
                                  ; about 0.25 of a second
                                  delay_short:
-0000a6 930f                      	push r16
+0000c8 930f                      	push r16
                                  
-0000a7 e004                      	ldi r16, 4
+0000c9 e004                      	ldi r16, 4
                                  delay_short_loop:
-0000a8 d004                      	rcall delay
-0000a9 950a                      	dec r16
-0000aa f7e9                      	brne delay_short_loop
+0000ca d004                      	rcall delay
+0000cb 950a                      	dec r16
+0000cc f7e9                      	brne delay_short_loop
                                  
-0000ab 910f                      	pop r16
-0000ac 9508                      	ret
+0000cd 910f                      	pop r16
+0000ce 9508                      	ret
                                  
                                  ; When wanting about a 1/5th of a second delay, all other
                                  ; code must call this function
                                  ;
                                  delay:
-0000ad d001                      	rcall delay_busywait
-0000ae 9508                      	ret
+0000cf d001                      	rcall delay_busywait
+0000d0 9508                      	ret
                                  
                                  
                                  ; This function is ONLY called from "delay", and
@@ -2238,31 +2538,31 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; running on a mega2560 processor.
                                  ;
                                  delay_busywait:
-0000af 930f                      	push r16
-0000b0 931f                      	push r17
-0000b1 932f                      	push r18
+0000d1 930f                      	push r16
+0000d2 931f                      	push r17
+0000d3 932f                      	push r18
                                  
-0000b2 e008                      	ldi r16, 0x08
+0000d4 e008                      	ldi r16, 0x08
                                  delay_busywait_loop1:
-0000b3 950a                      	dec r16
-0000b4 f039                      	breq delay_busywait_exit
+0000d5 950a                      	dec r16
+0000d6 f039                      	breq delay_busywait_exit
                                  
-0000b5 ef1f                      	ldi r17, 0xff
+0000d7 ef1f                      	ldi r17, 0xff
                                  delay_busywait_loop2:
-0000b6 951a                      	dec r17
-0000b7 f3d9                      	breq delay_busywait_loop1
+0000d8 951a                      	dec r17
+0000d9 f3d9                      	breq delay_busywait_loop1
                                  
-0000b8 ef2f                      	ldi r18, 0xff
+0000da ef2f                      	ldi r18, 0xff
                                  delay_busywait_loop3:
-0000b9 952a                      	dec r18
-0000ba f3d9                      	breq delay_busywait_loop2
-0000bb cffd                      	rjmp delay_busywait_loop3
+0000db 952a                      	dec r18
+0000dc f3d9                      	breq delay_busywait_loop2
+0000dd cffd                      	rjmp delay_busywait_loop3
                                  
                                  delay_busywait_exit:
-0000bc 912f                      	pop r18
-0000bd 911f                      	pop r17
-0000be 910f                      	pop r16
-0000bf 9508                      	ret
+0000de 912f                      	pop r18
+0000df 911f                      	pop r17
+0000e0 910f                      	pop r16
+0000e1 9508                      	ret
                                  
                                  
                                  ; Some tables
@@ -2272,135 +2572,135 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  PATTERNS:
                                  	; LED pattern shown from left to right: "." means off, "o" means
                                      ; on, 1 means long/slow, while 2 means short/fast.
-0000c0 2e41
-0000c1 6f2e
-0000c2 2e6f
-0000c3 012e                      	.db "A", "..oo..", 1
-0000c4 2e42
-0000c5 2e6f
-0000c6 6f2e
-0000c7 022e                      	.db "B", ".o..o.", 2
-0000c8 6f43
-0000c9 6f2e
-0000ca 2e2e
-0000cb 012e                      	.db "C", "o.o...", 1
-0000cc 2e44
-0000cd 2e2e
-0000ce 2e2e
-0000cf 016f                      	.db "D", ".....o", 1
-0000d0 6f45
-0000d1 6f6f
-0000d2 6f6f
-0000d3 016f                      	.db "E", "oooooo", 1
-0000d4 2e46
-0000d5 6f6f
-0000d6 6f6f
-0000d7 022e                      	.db "F", ".oooo.", 2
-0000d8 6f47
-0000d9 2e6f
-0000da 6f2e
-0000db 026f                      	.db "G", "oo..oo", 2
-0000dc 2e48
-0000dd 6f2e
-0000de 2e6f
-0000df 022e                      	.db "H", "..oo..", 2
-0000e0 2e49
-0000e1 2e6f
-0000e2 6f2e
-0000e3 012e                      	.db "I", ".o..o.", 1
-0000e4 2e4a
-0000e5 2e2e
-0000e6 2e2e
-0000e7 026f                      	.db "J", ".....o", 2
-0000e8 2e4b
-0000e9 2e2e
-0000ea 6f2e
-0000eb 026f                      	.db "K", "....oo", 2
-0000ec 6f4c
-0000ed 6f2e
-0000ee 6f2e
-0000ef 012e                      	.db "L", "o.o.o.", 1
-0000f0 6f4d
-0000f1 6f6f
-0000f2 6f6f
-0000f3 026f                      	.db "M", "oooooo", 2
-0000f4 6f4e
-0000f5 2e6f
-0000f6 2e2e
-0000f7 012e                      	.db "N", "oo....", 1
-0000f8 2e4f
-0000f9 6f6f
-0000fa 6f6f
-0000fb 012e                      	.db "O", ".oooo.", 1
-0000fc 6f50
-0000fd 6f2e
-0000fe 2e6f
-0000ff 016f                      	.db "P", "o.oo.o", 1
-000100 6f51
-000101 6f2e
-000102 2e6f
-000103 026f                      	.db "Q", "o.oo.o", 2
-000104 6f52
-000105 2e6f
-000106 6f2e
-000107 016f                      	.db "R", "oo..oo", 1
-000108 2e53
-000109 2e2e
-00010a 6f2e
-00010b 016f                      	.db "S", "....oo", 1
-00010c 2e54
-00010d 6f2e
-00010e 2e6f
-00010f 022e                      	.db "T", "..oo..", 2
-000110 6f55
-000111 2e2e
-000112 2e2e
-000113 012e                      	.db "U", "o.....", 1
-000114 6f56
-000115 6f2e
-000116 6f2e
-000117 022e                      	.db "V", "o.o.o.", 2
-000118 6f57
-000119 6f2e
-00011a 2e2e
-00011b 022e                      	.db "W", "o.o...", 2
-00011c 6f57
-00011d 2e6f
-00011e 2e2e
-00011f 022e                      	.db "W", "oo....", 2
-000120 2e59
-000121 6f2e
-000122 2e6f
-000123 022e                      	.db "Y", "..oo..", 2
-000124 6f5a
-000125 2e2e
-000126 2e2e
-000127 022e                      	.db "Z", "o.....", 2
-000128 6f2d
-000129 2e2e
-00012a 6f2e
-00012b 016f                      	.db "-", "o...oo", 1   ; Just in case!
+0000e2 2e41
+0000e3 6f2e
+0000e4 2e6f
+0000e5 012e                      	.db "A", "..oo..", 1
+0000e6 2e42
+0000e7 2e6f
+0000e8 6f2e
+0000e9 022e                      	.db "B", ".o..o.", 2
+0000ea 6f43
+0000eb 6f2e
+0000ec 2e2e
+0000ed 012e                      	.db "C", "o.o...", 1
+0000ee 2e44
+0000ef 2e2e
+0000f0 2e2e
+0000f1 016f                      	.db "D", ".....o", 1
+0000f2 6f45
+0000f3 6f6f
+0000f4 6f6f
+0000f5 016f                      	.db "E", "oooooo", 1
+0000f6 2e46
+0000f7 6f6f
+0000f8 6f6f
+0000f9 022e                      	.db "F", ".oooo.", 2
+0000fa 6f47
+0000fb 2e6f
+0000fc 6f2e
+0000fd 026f                      	.db "G", "oo..oo", 2
+0000fe 2e48
+0000ff 6f2e
+000100 2e6f
+000101 022e                      	.db "H", "..oo..", 2
+000102 2e49
+000103 2e6f
+000104 6f2e
+000105 012e                      	.db "I", ".o..o.", 1
+000106 2e4a
+000107 2e2e
+000108 2e2e
+000109 026f                      	.db "J", ".....o", 2
+00010a 2e4b
+00010b 2e2e
+00010c 6f2e
+00010d 026f                      	.db "K", "....oo", 2
+00010e 6f4c
+00010f 6f2e
+000110 6f2e
+000111 012e                      	.db "L", "o.o.o.", 1
+000112 6f4d
+000113 6f6f
+000114 6f6f
+000115 026f                      	.db "M", "oooooo", 2
+000116 6f4e
+000117 2e6f
+000118 2e2e
+000119 012e                      	.db "N", "oo....", 1
+00011a 2e4f
+00011b 6f6f
+00011c 6f6f
+00011d 012e                      	.db "O", ".oooo.", 1
+00011e 6f50
+00011f 6f2e
+000120 2e6f
+000121 016f                      	.db "P", "o.oo.o", 1
+000122 6f51
+000123 6f2e
+000124 2e6f
+000125 026f                      	.db "Q", "o.oo.o", 2
+000126 6f52
+000127 2e6f
+000128 6f2e
+000129 016f                      	.db "R", "oo..oo", 1
+00012a 2e53
+00012b 2e2e
+00012c 6f2e
+00012d 016f                      	.db "S", "....oo", 1
+00012e 2e54
+00012f 6f2e
+000130 2e6f
+000131 022e                      	.db "T", "..oo..", 2
+000132 6f55
+000133 2e2e
+000134 2e2e
+000135 012e                      	.db "U", "o.....", 1
+000136 6f56
+000137 6f2e
+000138 6f2e
+000139 022e                      	.db "V", "o.o.o.", 2
+00013a 6f57
+00013b 6f2e
+00013c 2e2e
+00013d 022e                      	.db "W", "o.o...", 2
+00013e 6f57
+00013f 2e6f
+000140 2e2e
+000141 022e                      	.db "W", "oo....", 2
+000142 2e59
+000143 6f2e
+000144 2e6f
+000145 022e                      	.db "Y", "..oo..", 2
+000146 6f5a
+000147 2e2e
+000148 2e2e
+000149 022e                      	.db "Z", "o.....", 2
+00014a 6f2d
+00014b 2e2e
+00014c 6f2e
+00014d 016f                      	.db "-", "o...oo", 1   ; Just in case!
                                  
-00012c 5343
-00012d 3243
-00012e 3033
-00012f 0000                      WORD00: .db "CSC230", 0, 0
-000130 4c41
-000131 004c                      WORD01: .db "ALL", 0
-000132 4f52
-000133 4441
-000134 0053
-000135 0000                      WORD02: .db "ROADS", 0, 0, 0
-000136 454c
-000137 4441
-000138 0000
-000139 0000                      WORD03: .db "LEAD", 0, 0, 0, 0
-00013a 4f54
-00013b 0000                      WORD04: .db "TO", 0, 0
-00013c 5655
-00013d 4349
-00013e 0000
-00013f 0000                      WORD05: .db "UVIC", 0, 0, 0, 0
+00014e 5343
+00014f 3243
+000150 3033
+000151 0000                      WORD00: .db "CSC230", 0, 0
+000152 4c41
+000153 004c                      WORD01: .db "ALL", 0
+000154 4f52
+000155 4441
+000156 0053
+000157 0000                      WORD02: .db "ROADS", 0, 0, 0
+000158 454c
+000159 4441
+00015a 0000
+00015b 0000                      WORD03: .db "LEAD", 0, 0, 0, 0
+00015c 4f54
+00015d 0000                      WORD04: .db "TO", 0, 0
+00015e 5655
+00015f 4349
+000160 0000
+000161 0000                      WORD05: .db "UVIC", 0, 0, 0, 0
                                  
                                  ; =======================================
                                  ; ==== END OF "DO NOT TOUCH" SECTION ====
@@ -2423,40 +2723,40 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega2560" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   2 z  :   7 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  47 r17:  33 r18:   4 r19:   0 r20:   4 
-r21:   9 r22:   0 r23:   0 r24:   1 r25:   7 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 7 out of 35 (20.0%)
+r13:   0 r14:   0 r15:   0 r16:  44 r17:  41 r18:  10 r19:   0 r20:   4 
+r21:  12 r22:   0 r23:   0 r24:   2 r25:  16 r26:   0 r27:   0 r28:   2 
+r29:   2 r30:   2 r31:   2 
+Registers used: 13 out of 35 (37.1%)
 
 "ATmega2560" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
-andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   3 and   :   0 
+andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   7 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   9 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   5 eicall:   0 eijmp :   0 elpm  :   0 
+brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   4 cbi   :   0 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  11 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
+cpi   :   1 cpse  :   0 dec   :   7 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   0 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  40 
-lds   :   0 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   2 movw  :   0 
+in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   2 ldi   :  35 
+lds   :   0 lpm   :   7 lsl   :   1 lsr   :   1 mov   :   5 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   6 out   :   4 pop   :  14 push  :  14 rcall :  63 ret   :  10 
-reti  :   0 rjmp  :   8 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
+ori   :   8 out   :   4 pop   :  18 push  :  18 rcall :  49 ret   :  11 
+reti  :   0 rjmp  :  11 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   6 
-sbrs  :   0 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
+sbrs  :   1 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :   2 sub   :   0 subi  :   0 swap  :   0 
-tst   :   0 wdr   :   0 
-Instructions used: 16 out of 116 (13.8%)
+tst   :   1 wdr   :   0 
+Instructions used: 27 out of 116 (23.3%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000280    384    256    640  262144   0.2%
+[.cseg] 0x000000 0x0002c4    452    256    708  262144   0.3%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
