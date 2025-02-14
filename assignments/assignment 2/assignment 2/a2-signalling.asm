@@ -54,7 +54,7 @@
 ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
 ; -----------------------------------------------------
 
-	rjmp test_part_d
+	rjmp test_part_e
 	; Test code
 
 
@@ -313,7 +313,7 @@ slow_leds:
     rcall configure_leds        ; Illuminate LED's
 
     ; --- DELAY ---
-    ;rcall delay_long            ; Wait approx 1s
+    rcall delay_long            ; Wait approx 1s
 
     ; --- DISABLE LED'S ---
     clr r16                     ; Prepare parameter for configure LED;s
@@ -419,11 +419,11 @@ leds_with_speed:
 	breq fast                  ; If result of mask was 0, slow configuration is being used, therefore branch to "slow"
 
 	; --- SLOW LED BRANCH ---
-	    CALL slow_leds        ; Call slow_leds routine
+	    rcall slow_leds        ; Call slow_leds routine
 	    ret                    ; Exit out of this routine
 	; --- FAST LED BRANCH ---
 	fast:
-	    CALL fast_leds		   ; Call fast_leds routine
+	    rcall fast_leds		   ; Call fast_leds routine
 	    ret                    ; Exit out of this routine
 ;========================================================================================;
 ;                         ╔════════════════════════════════════╗                         ;
@@ -471,6 +471,8 @@ encode_letter:
 	in YL, SPL                           ; Store low stack pointer in y-low
 	ldd R16, Y+4                         ; Store value / character pushed to stack in R16
 ; <- Store Pointer to start of Table in Z ->
+	push ZH                              ; Preserve Z-High byte in stack
+	push ZL                              ; Preserve Z-Low byte in stack
 	ldi ZH, high(PATTERNS<<1)            ; Stores the High Byte of the pointer to the start of the table in z-high
 	ldi ZL, low(PATTERNS<<1)             ; Stores the Low Byte of the pointer to the start of the table in z-low
 ; <- Ensure output register is clear ->
@@ -503,10 +505,10 @@ encode_letter:
 			.def counter = R18
     pattern_traversal:
 		adiw Z,1                         ; Increase table pointer by 1, we do this at the start of the loop since currently it is pointing to the first column containing the letter
-		lpm R17, Z						 ; Load the letter from the pattern pointed to by Z into R17
+		lpm R17, Z			 ; Load the letter from the pattern pointed to by Z into R17
 		cpi R17, 0x6f                    ; Checks if the current letter of the pattern is 'o'
 		brne not_set                     ; Branch if the letter of the pattern is not 'o' indicating the LED should not be set
-			ori R25, 0b00000001          ; Since R25 is clr'd and we lsl it later in the loop this will always set the first bit
+			ori R25, 0b00000001      ; Since R25 is clr'd and we lsl it later in the loop this will always set the first bit
 		
 		not_set:                         ; If the current letter in patern pointed to by Z is not 'o' we do not set any bits
 		dec counter                      ; Decrease counter by 1
@@ -515,13 +517,17 @@ encode_letter:
 		
 		rjmp pattern_traversal           ; Continuing traversing the pattern
 
+    ; --- PROCCESS DELAY CODE ---
 	proccess_delay:
 		adiw Z,1                         ; Increment our table pointer Z by 1 so that it is now pointing to the delay code
 		lpm R17, Z                       ; Load the delay code pointed to by Z into R17
 		dec R17                          ; Decrement R17, if it is 1 it will now be 0 and if it is 2 it will now be 1 which lets us test the bit
 		sbrs R17, 0                      ; We do not set the 2 lmb's if R17's rmb is set, i.e the delay code is 2
 		    ori R25, 0b11000000          ; If R17's rmb is clear, it means delay code was 1 so we set the 2 lmb's
-		
+
+	; -- TERMINATION ---
+	pop ZL                                   ; Restore original value of ZL
+	pop ZH                                   ; Restore original value of ZH
 ret
 ;========================================================================================;
 ;                         ╔════════════════════════════════════╗                         ;
@@ -561,26 +567,26 @@ ret
 ;================================================================================;
 display_message_signal:
     ; --- INITIALIZATION ---
-	mov ZL, r24 ; store the low byte of the address in the callee to ZL
-	mov ZH, r25 ; stroe the high byte of the address in the callee to ZH
+	mov ZL, r24 ; Store the low byte of the parameter address in Z-Low
+	mov ZH, r25 ; Store the high byte of the parameter address in Z-High
 
 	display_word_loop:
- 	    lpm R18, Z+                ; Increase the pointer traversing the word
-		tst R18                    ; Check if the pointer pointing to a letter in the word is null indiciated we have reached the end of the word
-		breq word_finished         ; Branch if the pointer is pointing to a null character indiciated the word is finished
+ 	    lpm R21, Z+                ; Increase the pointer traversing the word
+	    cpi R21, 0                 ; Check if the pointer pointing to a letter in the word is null indiciated we have reached the end of the word
+            breq word_finished         ; Branch if the pointer is pointing to a null character indiciated the word is finished
 
-		; --- ENCODE LETTER ---
-		push R18                   ; Add R18 to the stack as a parameter for encode letter
-		CALL encode_letter        ; Encode the letter  
-		pop R18                    ; Remove R18 from the stack to avoid polluting the stack
-		; --- DISPLAY LETTER ---
-		push R25                   ; Encode letter stores the result in R25 so push into stack as a parameter for display letter
-		CALL leds_with_speed      ; Display the letter
-		pop R25                    ; Remove from stack to avoid polluting the stack
+	    ; --- ENCODE LETTER ---
+	    push R21                   ; Add R18 to the stack as a parameter for "encode eletter"
+	    rcall encode_letter        ; Encode the letter  
+	    pop R21                    ; Remove R18 from the stack to avoid polluting the stack
+	    ; --- DISPLAY LETTER ---
+	    push R25                   ; Encode letter stores the result in R25 so push into stack as a parameter for display letter
+	    rcall leds_with_speed      ; Display the letter
+	    pop R25                    ; Remove from stack to avoid polluting the stack
 
-		RJMP display_word_loop     ; Go back to the start of the loop
+	    RJMP display_word_loop     ; Go back to the start of the loop and check next letter
 
-    word_finished:
+       word_finished:
 	    ret
 ;========================================================================================;
 ;                         ╔════════════════════════════════════╗                         ;
@@ -707,7 +713,7 @@ PATTERNS:
 	.db "U", "o.....", 1
 	.db "V", "o.o.o.", 2
 	.db "W", "o.o...", 2
-	.db "W", "oo....", 2
+	.db "X", "oo....", 2
 	.db "Y", "..oo..", 2
 	.db "Z", "o.....", 2
 	.db "-", "o...oo", 1   ; Just in case!
