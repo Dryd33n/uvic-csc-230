@@ -54,7 +54,7 @@
 ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
 ; -----------------------------------------------------
 
-	rjmp test_part_a
+	rjmp test_part_b
 	; Test code
 
 
@@ -250,11 +250,20 @@ configure_leds:
 	ret
 
 slow_leds:
-	ret
+	mov r16, r17
+	rcall configure_leds
+	rcall delay_long
+	clr r16
+	rcall configure_leds
 
 
 fast_leds:
-	ret
+	mov r16, r17
+	rcall configure_leds
+	rcall delay_short
+	clr r16
+	rcall configure_leds
+
 
 
 leds_with_speed:

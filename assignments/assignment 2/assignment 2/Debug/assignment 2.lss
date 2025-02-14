@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm Thu Feb 13 18:09:34 2025
+AVRASM ver. 2.2.8  C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm Thu Feb 13 18:14:45 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
 C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm(23): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc'
@@ -1921,7 +1921,7 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  
                                  
                                  	;SET LED's TO OUTPUT
-000000 e71f                      	ldi r17, 0b01111111
+000000 ef1f                      	ldi r17, 0b11111111
 000001 9310 010a                 	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
 000003 b914                      	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
 000004 2711                      	clr r17
@@ -1942,7 +1942,7 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
                                  ; -----------------------------------------------------
                                  
-000005 c000                      	rjmp test_part_a
+000005 c02a                      	rjmp test_part_b
                                  	; Test code
                                  
                                  
@@ -1951,45 +1951,45 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  
 000006 e30f                      	ldi r16, 0b00111111
 000007 d070                      	rcall configure_leds
-000008 d088                      	rcall delay_long
+000008 d090                      	rcall delay_long
                                  
 000009 2700                      	clr r16
 00000a d06d                      	rcall configure_leds
-00000b d08c                      	rcall delay_short
+00000b d094                      	rcall delay_short
                                  
 00000c e200                      	ldi r16, 0b00100000
 00000d d06a                      	rcall configure_leds
-00000e d089                      	rcall delay_short
+00000e d091                      	rcall delay_short
 00000f e100                      	ldi r16, 0b00010000
 000010 d067                      	rcall configure_leds
-000011 d086                      	rcall delay_short
+000011 d08e                      	rcall delay_short
 000012 e008                      	ldi r16, 0b00001000
 000013 d064                      	rcall configure_leds
-000014 d083                      	rcall delay_short
+000014 d08b                      	rcall delay_short
 000015 e004                      	ldi r16, 0b00000100
 000016 d061                      	rcall configure_leds
-000017 d080                      	rcall delay_short
+000017 d088                      	rcall delay_short
 000018 e002                      	ldi r16, 0b00000010
 000019 d05e                      	rcall configure_leds
-00001a d07d                      	rcall delay_short
+00001a d085                      	rcall delay_short
 00001b e001                      	ldi r16, 0b00000001
 00001c d05b                      	rcall configure_leds
-00001d d07a                      	rcall delay_short
+00001d d082                      	rcall delay_short
 00001e e002                      	ldi r16, 0b00000010
 00001f d058                      	rcall configure_leds
-000020 d077                      	rcall delay_short
+000020 d07f                      	rcall delay_short
 000021 e004                      	ldi r16, 0b00000100
 000022 d055                      	rcall configure_leds
-000023 d074                      	rcall delay_short
+000023 d07c                      	rcall delay_short
 000024 e008                      	ldi r16, 0b00001000
 000025 d052                      	rcall configure_leds
-000026 d071                      	rcall delay_short
+000026 d079                      	rcall delay_short
 000027 e100                      	ldi r16, 0b00010000
 000028 d04f                      	rcall configure_leds
-000029 d06e                      	rcall delay_short
+000029 d076                      	rcall delay_short
 00002a e200                      	ldi r16, 0b00100000
 00002b d04c                      	rcall configure_leds
-00002c d06b                      	rcall delay_short
+00002c d073                      	rcall delay_short
                                  
 00002d 2700                      	clr r16
 00002e d049                      	rcall configure_leds
@@ -2007,43 +2007,43 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
 000036 e115                      	ldi r17, 0b00010101
 000037 d054                      	rcall slow_leds
                                  
-000038 d058                      	rcall delay_long
-000039 d057                      	rcall delay_long
+000038 d060                      	rcall delay_long
+000039 d05f                      	rcall delay_long
                                  
 00003a e21a                      	ldi r17, 0b00101010
-00003b d051                      	rcall fast_leds
+00003b d055                      	rcall fast_leds
 00003c e115                      	ldi r17, 0b00010101
-00003d d04f                      	rcall fast_leds
+00003d d053                      	rcall fast_leds
 00003e e21a                      	ldi r17, 0b00101010
-00003f d04d                      	rcall fast_leds
+00003f d051                      	rcall fast_leds
 000040 e115                      	ldi r17, 0b00010101
-000041 d04b                      	rcall fast_leds
+000041 d04f                      	rcall fast_leds
 000042 e21a                      	ldi r17, 0b00101010
-000043 d049                      	rcall fast_leds
+000043 d04d                      	rcall fast_leds
 000044 e115                      	ldi r17, 0b00010101
-000045 d047                      	rcall fast_leds
+000045 d04b                      	rcall fast_leds
 000046 e21a                      	ldi r17, 0b00101010
-000047 d045                      	rcall fast_leds
+000047 d049                      	rcall fast_leds
 000048 e115                      	ldi r17, 0b00010101
-000049 d043                      	rcall fast_leds
+000049 d047                      	rcall fast_leds
                                  
 00004a c02c                      	rjmp end
                                  
                                  test_part_c:
 00004b ef08                      	ldi r16, 0b11111000
 00004c 930f                      	push r16
-00004d d040                      	rcall leds_with_speed
+00004d d048                      	rcall leds_with_speed
 00004e 910f                      	pop r16
                                  
 00004f ed0c                      	ldi r16, 0b11011100
 000050 930f                      	push r16
-000051 d03c                      	rcall leds_with_speed
+000051 d044                      	rcall leds_with_speed
 000052 910f                      	pop r16
                                  
 000053 e240                      	ldi r20, 0b00100000
                                  test_part_c_loop:
 000054 934f                      	push r20
-000055 d038                      	rcall leds_with_speed
+000055 d040                      	rcall leds_with_speed
 000056 914f                      	pop r20
 000057 9546                      	lsr r20
 000058 f7d9                      	brne test_part_c_loop
@@ -2054,42 +2054,42 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  test_part_d:
 00005a e451                      	ldi r21, 'A'
 00005b 935f                      	push r21
-00005c d032                      	rcall encode_letter
+00005c d03a                      	rcall encode_letter
 00005d 915f                      	pop r21
 00005e 939f                      	push r25
-00005f d02e                      	rcall leds_with_speed
+00005f d036                      	rcall leds_with_speed
 000060 919f                      	pop r25
                                  
-000061 d02f                      	rcall delay_long
+000061 d037                      	rcall delay_long
                                  
 000062 e452                      	ldi r21, 'B'
 000063 935f                      	push r21
-000064 d02a                      	rcall encode_letter
+000064 d032                      	rcall encode_letter
 000065 915f                      	pop r21
 000066 939f                      	push r25
-000067 d026                      	rcall leds_with_speed
+000067 d02e                      	rcall leds_with_speed
 000068 919f                      	pop r25
                                  
-000069 d027                      	rcall delay_long
+000069 d02f                      	rcall delay_long
                                  
                                  
 00006a e453                      	ldi r21, 'C'
 00006b 935f                      	push r21
-00006c d022                      	rcall encode_letter
+00006c d02a                      	rcall encode_letter
 00006d 915f                      	pop r21
 00006e 939f                      	push r25
-00006f d01e                      	rcall leds_with_speed
+00006f d026                      	rcall leds_with_speed
 000070 919f                      	pop r25
                                  
-000071 d01f                      	rcall delay_long
+000071 d027                      	rcall delay_long
                                  
 000072 c004                      	rjmp end
                                  
                                  
                                  test_part_e:
 000073 e092                      	ldi r25, HIGH(WORD05 << 1)
-000074 e58c                      	ldi r24, LOW(WORD05 << 1)
-000075 d01a                      	rcall display_message_signal
+000074 e68c                      	ldi r24, LOW(WORD05 << 1)
+000075 d022                      	rcall display_message_signal
 000076 c000                      	rjmp end
                                  
                                  end:
@@ -2138,15 +2138,24 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
 00008b 9508                      	ret
                                  
                                  slow_leds:
-00008c 9508                      	ret
+00008c 2f01                      	mov r16, r17
+00008d dfea                      	rcall configure_leds
+00008e d00a                      	rcall delay_long
+00008f 2700                      	clr r16
+000090 dfe7                      	rcall configure_leds
                                  
                                  
                                  fast_leds:
-00008d 9508                      	ret
+000091 2f01                      	mov r16, r17
+000092 dfe5                      	rcall configure_leds
+000093 d00c                      	rcall delay_short
+000094 2700                      	clr r16
+000095 dfe2                      	rcall configure_leds
+                                 
                                  
                                  
                                  leds_with_speed:
-00008e 9508                      	ret
+000096 9508                      	ret
                                  
                                  
                                  ; Note -- this function will only ever be tested
@@ -2158,11 +2167,11 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; for any legal letter.
                                  
                                  encode_letter:
-00008f 9508                      	ret
+000097 9508                      	ret
                                  
                                  
                                  display_message_signal:
-000090 9508                      	ret
+000098 9508                      	ret
                                  
                                  
                                  ; ****************************************************
@@ -2178,37 +2187,37 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  
                                  ; about one second
                                  delay_long:
-000091 930f                      	push r16
+000099 930f                      	push r16
                                  
-000092 e00e                      	ldi r16, 14
+00009a e00e                      	ldi r16, 14
                                  delay_long_loop:
-000093 d00b                      	rcall delay
-000094 950a                      	dec r16
-000095 f7e9                      	brne delay_long_loop
+00009b d00b                      	rcall delay
+00009c 950a                      	dec r16
+00009d f7e9                      	brne delay_long_loop
                                  
-000096 910f                      	pop r16
-000097 9508                      	ret
+00009e 910f                      	pop r16
+00009f 9508                      	ret
                                  
                                  
                                  ; about 0.25 of a second
                                  delay_short:
-000098 930f                      	push r16
+0000a0 930f                      	push r16
                                  
-000099 e004                      	ldi r16, 4
+0000a1 e004                      	ldi r16, 4
                                  delay_short_loop:
-00009a d004                      	rcall delay
-00009b 950a                      	dec r16
-00009c f7e9                      	brne delay_short_loop
+0000a2 d004                      	rcall delay
+0000a3 950a                      	dec r16
+0000a4 f7e9                      	brne delay_short_loop
                                  
-00009d 910f                      	pop r16
-00009e 9508                      	ret
+0000a5 910f                      	pop r16
+0000a6 9508                      	ret
                                  
                                  ; When wanting about a 1/5th of a second delay, all other
                                  ; code must call this function
                                  ;
                                  delay:
-00009f d001                      	rcall delay_busywait
-0000a0 9508                      	ret
+0000a7 d001                      	rcall delay_busywait
+0000a8 9508                      	ret
                                  
                                  
                                  ; This function is ONLY called from "delay", and
@@ -2218,31 +2227,31 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  ; running on a mega2560 processor.
                                  ;
                                  delay_busywait:
-0000a1 930f                      	push r16
-0000a2 931f                      	push r17
-0000a3 932f                      	push r18
+0000a9 930f                      	push r16
+0000aa 931f                      	push r17
+0000ab 932f                      	push r18
                                  
-0000a4 e008                      	ldi r16, 0x08
+0000ac e008                      	ldi r16, 0x08
                                  delay_busywait_loop1:
-0000a5 950a                      	dec r16
-0000a6 f039                      	breq delay_busywait_exit
+0000ad 950a                      	dec r16
+0000ae f039                      	breq delay_busywait_exit
                                  
-0000a7 ef1f                      	ldi r17, 0xff
+0000af ef1f                      	ldi r17, 0xff
                                  delay_busywait_loop2:
-0000a8 951a                      	dec r17
-0000a9 f3d9                      	breq delay_busywait_loop1
+0000b0 951a                      	dec r17
+0000b1 f3d9                      	breq delay_busywait_loop1
                                  
-0000aa ef2f                      	ldi r18, 0xff
+0000b2 ef2f                      	ldi r18, 0xff
                                  delay_busywait_loop3:
-0000ab 952a                      	dec r18
-0000ac f3d9                      	breq delay_busywait_loop2
-0000ad cffd                      	rjmp delay_busywait_loop3
+0000b3 952a                      	dec r18
+0000b4 f3d9                      	breq delay_busywait_loop2
+0000b5 cffd                      	rjmp delay_busywait_loop3
                                  
                                  delay_busywait_exit:
-0000ae 912f                      	pop r18
-0000af 911f                      	pop r17
-0000b0 910f                      	pop r16
-0000b1 9508                      	ret
+0000b6 912f                      	pop r18
+0000b7 911f                      	pop r17
+0000b8 910f                      	pop r16
+0000b9 9508                      	ret
                                  
                                  
                                  ; Some tables
@@ -2252,135 +2261,135 @@ C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-
                                  PATTERNS:
                                  	; LED pattern shown from left to right: "." means off, "o" means
                                      ; on, 1 means long/slow, while 2 means short/fast.
-0000b2 2e41
-0000b3 6f2e
-0000b4 2e6f
-0000b5 012e                      	.db "A", "..oo..", 1
-0000b6 2e42
-0000b7 2e6f
-0000b8 6f2e
-0000b9 022e                      	.db "B", ".o..o.", 2
-0000ba 6f43
+0000ba 2e41
 0000bb 6f2e
-0000bc 2e2e
-0000bd 012e                      	.db "C", "o.o...", 1
-0000be 2e44
-0000bf 2e2e
-0000c0 2e2e
-0000c1 016f                      	.db "D", ".....o", 1
-0000c2 6f45
-0000c3 6f6f
-0000c4 6f6f
-0000c5 016f                      	.db "E", "oooooo", 1
-0000c6 2e46
-0000c7 6f6f
-0000c8 6f6f
-0000c9 022e                      	.db "F", ".oooo.", 2
-0000ca 6f47
-0000cb 2e6f
-0000cc 6f2e
-0000cd 026f                      	.db "G", "oo..oo", 2
-0000ce 2e48
-0000cf 6f2e
-0000d0 2e6f
-0000d1 022e                      	.db "H", "..oo..", 2
-0000d2 2e49
+0000bc 2e6f
+0000bd 012e                      	.db "A", "..oo..", 1
+0000be 2e42
+0000bf 2e6f
+0000c0 6f2e
+0000c1 022e                      	.db "B", ".o..o.", 2
+0000c2 6f43
+0000c3 6f2e
+0000c4 2e2e
+0000c5 012e                      	.db "C", "o.o...", 1
+0000c6 2e44
+0000c7 2e2e
+0000c8 2e2e
+0000c9 016f                      	.db "D", ".....o", 1
+0000ca 6f45
+0000cb 6f6f
+0000cc 6f6f
+0000cd 016f                      	.db "E", "oooooo", 1
+0000ce 2e46
+0000cf 6f6f
+0000d0 6f6f
+0000d1 022e                      	.db "F", ".oooo.", 2
+0000d2 6f47
 0000d3 2e6f
 0000d4 6f2e
-0000d5 012e                      	.db "I", ".o..o.", 1
-0000d6 2e4a
-0000d7 2e2e
-0000d8 2e2e
-0000d9 026f                      	.db "J", ".....o", 2
-0000da 2e4b
-0000db 2e2e
+0000d5 026f                      	.db "G", "oo..oo", 2
+0000d6 2e48
+0000d7 6f2e
+0000d8 2e6f
+0000d9 022e                      	.db "H", "..oo..", 2
+0000da 2e49
+0000db 2e6f
 0000dc 6f2e
-0000dd 026f                      	.db "K", "....oo", 2
-0000de 6f4c
-0000df 6f2e
-0000e0 6f2e
-0000e1 012e                      	.db "L", "o.o.o.", 1
-0000e2 6f4d
-0000e3 6f6f
-0000e4 6f6f
-0000e5 026f                      	.db "M", "oooooo", 2
-0000e6 6f4e
-0000e7 2e6f
-0000e8 2e2e
-0000e9 012e                      	.db "N", "oo....", 1
-0000ea 2e4f
+0000dd 012e                      	.db "I", ".o..o.", 1
+0000de 2e4a
+0000df 2e2e
+0000e0 2e2e
+0000e1 026f                      	.db "J", ".....o", 2
+0000e2 2e4b
+0000e3 2e2e
+0000e4 6f2e
+0000e5 026f                      	.db "K", "....oo", 2
+0000e6 6f4c
+0000e7 6f2e
+0000e8 6f2e
+0000e9 012e                      	.db "L", "o.o.o.", 1
+0000ea 6f4d
 0000eb 6f6f
 0000ec 6f6f
-0000ed 012e                      	.db "O", ".oooo.", 1
-0000ee 6f50
-0000ef 6f2e
-0000f0 2e6f
-0000f1 016f                      	.db "P", "o.oo.o", 1
-0000f2 6f51
-0000f3 6f2e
-0000f4 2e6f
-0000f5 026f                      	.db "Q", "o.oo.o", 2
-0000f6 6f52
-0000f7 2e6f
-0000f8 6f2e
-0000f9 016f                      	.db "R", "oo..oo", 1
-0000fa 2e53
-0000fb 2e2e
-0000fc 6f2e
-0000fd 016f                      	.db "S", "....oo", 1
-0000fe 2e54
-0000ff 6f2e
-000100 2e6f
-000101 022e                      	.db "T", "..oo..", 2
-000102 6f55
+0000ed 026f                      	.db "M", "oooooo", 2
+0000ee 6f4e
+0000ef 2e6f
+0000f0 2e2e
+0000f1 012e                      	.db "N", "oo....", 1
+0000f2 2e4f
+0000f3 6f6f
+0000f4 6f6f
+0000f5 012e                      	.db "O", ".oooo.", 1
+0000f6 6f50
+0000f7 6f2e
+0000f8 2e6f
+0000f9 016f                      	.db "P", "o.oo.o", 1
+0000fa 6f51
+0000fb 6f2e
+0000fc 2e6f
+0000fd 026f                      	.db "Q", "o.oo.o", 2
+0000fe 6f52
+0000ff 2e6f
+000100 6f2e
+000101 016f                      	.db "R", "oo..oo", 1
+000102 2e53
 000103 2e2e
-000104 2e2e
-000105 012e                      	.db "U", "o.....", 1
-000106 6f56
+000104 6f2e
+000105 016f                      	.db "S", "....oo", 1
+000106 2e54
 000107 6f2e
-000108 6f2e
-000109 022e                      	.db "V", "o.o.o.", 2
-00010a 6f57
-00010b 6f2e
+000108 2e6f
+000109 022e                      	.db "T", "..oo..", 2
+00010a 6f55
+00010b 2e2e
 00010c 2e2e
-00010d 022e                      	.db "W", "o.o...", 2
-00010e 6f57
-00010f 2e6f
-000110 2e2e
-000111 022e                      	.db "W", "oo....", 2
-000112 2e59
+00010d 012e                      	.db "U", "o.....", 1
+00010e 6f56
+00010f 6f2e
+000110 6f2e
+000111 022e                      	.db "V", "o.o.o.", 2
+000112 6f57
 000113 6f2e
-000114 2e6f
-000115 022e                      	.db "Y", "..oo..", 2
-000116 6f5a
-000117 2e2e
+000114 2e2e
+000115 022e                      	.db "W", "o.o...", 2
+000116 6f57
+000117 2e6f
 000118 2e2e
-000119 022e                      	.db "Z", "o.....", 2
-00011a 6f2d
-00011b 2e2e
-00011c 6f2e
-00011d 016f                      	.db "-", "o...oo", 1   ; Just in case!
+000119 022e                      	.db "W", "oo....", 2
+00011a 2e59
+00011b 6f2e
+00011c 2e6f
+00011d 022e                      	.db "Y", "..oo..", 2
+00011e 6f5a
+00011f 2e2e
+000120 2e2e
+000121 022e                      	.db "Z", "o.....", 2
+000122 6f2d
+000123 2e2e
+000124 6f2e
+000125 016f                      	.db "-", "o...oo", 1   ; Just in case!
                                  
-00011e 5343
-00011f 3243
-000120 3033
-000121 0000                      WORD00: .db "CSC230", 0, 0
-000122 4c41
-000123 004c                      WORD01: .db "ALL", 0
-000124 4f52
-000125 4441
-000126 0053
-000127 0000                      WORD02: .db "ROADS", 0, 0, 0
-000128 454c
-000129 4441
-00012a 0000
-00012b 0000                      WORD03: .db "LEAD", 0, 0, 0, 0
-00012c 4f54
-00012d 0000                      WORD04: .db "TO", 0, 0
-00012e 5655
-00012f 4349
-000130 0000
-000131 0000                      WORD05: .db "UVIC", 0, 0, 0, 0
+000126 5343
+000127 3243
+000128 3033
+000129 0000                      WORD00: .db "CSC230", 0, 0
+00012a 4c41
+00012b 004c                      WORD01: .db "ALL", 0
+00012c 4f52
+00012d 4441
+00012e 0053
+00012f 0000                      WORD02: .db "ROADS", 0, 0, 0
+000130 454c
+000131 4441
+000132 0000
+000133 0000                      WORD03: .db "LEAD", 0, 0, 0, 0
+000134 4f54
+000135 0000                      WORD04: .db "TO", 0, 0
+000136 5655
+000137 4349
+000138 0000
+000139 0000                      WORD05: .db "UVIC", 0, 0, 0, 0
                                  
                                  ; =======================================
                                  ; ==== END OF "DO NOT TOUCH" SECTION ====
@@ -2405,7 +2414,7 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  39 r17:  31 r18:   4 r19:   0 r20:   4 
+r13:   0 r14:   0 r15:   0 r16:  43 r17:  33 r18:   4 r19:   0 r20:   4 
 r21:   9 r22:   0 r23:   0 r24:   1 r25:   7 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 7 out of 35 (20.0%)
@@ -2417,26 +2426,26 @@ brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   7 cls   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   9 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   5 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
 in    :   0 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  38 
-lds   :   0 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   0 movw  :   0 
+lds   :   0 lpm   :   0 lsl   :   0 lsr   :   1 mov   :   2 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   6 out   :   2 pop   :  14 push  :  14 rcall :  57 ret   :  10 
+ori   :   6 out   :   2 pop   :  14 push  :  14 rcall :  63 ret   :   8 
 reti  :   0 rjmp  :   8 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   6 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   0 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :   2 sub   :   0 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 15 out of 116 (12.9%)
+Instructions used: 16 out of 116 (13.8%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000264    356    256    612  262144   0.2%
+[.cseg] 0x000000 0x000274    372    256    628  262144   0.2%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

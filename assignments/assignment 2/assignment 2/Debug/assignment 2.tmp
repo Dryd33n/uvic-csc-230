@@ -22,35 +22,35 @@
   <FILE>assignment 2.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
+  <test_part_b><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>112</LINE></test_part_b>
   <test_part_a><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>61</LINE></test_part_a>
   <configure_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>221</LINE></configure_leds>
-  <delay_long><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>292</LINE></delay_long>
-  <delay_short><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>306</LINE></delay_short>
+  <delay_long><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>301</LINE></delay_long>
+  <delay_short><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>315</LINE></delay_short>
   <end><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>207</LINE></end>
-  <test_part_b><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>112</LINE></test_part_b>
   <slow_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>252</LINE></slow_leds>
-  <fast_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>256</LINE></fast_leds>
+  <fast_leds><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>260</LINE></fast_leds>
   <test_part_c><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>144</LINE></test_part_c>
-  <leds_with_speed><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>260</LINE></leds_with_speed>
+  <leds_with_speed><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>269</LINE></leds_with_speed>
   <test_part_c_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>156</LINE></test_part_c_loop>
   <test_part_d><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>166</LINE></test_part_d>
-  <encode_letter><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>272</LINE></encode_letter>
+  <encode_letter><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>281</LINE></encode_letter>
   <test_part_e><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>201</LINE></test_part_e>
-  <WORD05><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>400</LINE></WORD05>
-  <display_message_signal><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>276</LINE></display_message_signal>
-  <delay_long_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>296</LINE></delay_long_loop>
-  <delay><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>321</LINE></delay>
-  <delay_short_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>310</LINE></delay_short_loop>
-  <delay_busywait><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>332</LINE></delay_busywait>
-  <delay_busywait_loop1><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>338</LINE></delay_busywait_loop1>
-  <delay_busywait_exit><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>353</LINE></delay_busywait_exit>
-  <delay_busywait_loop2><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>343</LINE></delay_busywait_loop2>
-  <delay_busywait_loop3><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>348</LINE></delay_busywait_loop3>
-  <PATTERNS><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>364</LINE></PATTERNS>
-  <WORD00><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>395</LINE></WORD00>
-  <WORD01><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>396</LINE></WORD01>
-  <WORD02><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>397</LINE></WORD02>
-  <WORD03><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>398</LINE></WORD03>
-  <WORD04><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>399</LINE></WORD04>
+  <WORD05><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>409</LINE></WORD05>
+  <display_message_signal><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>285</LINE></display_message_signal>
+  <delay_long_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>305</LINE></delay_long_loop>
+  <delay><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>330</LINE></delay>
+  <delay_short_loop><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>319</LINE></delay_short_loop>
+  <delay_busywait><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>341</LINE></delay_busywait>
+  <delay_busywait_loop1><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>347</LINE></delay_busywait_loop1>
+  <delay_busywait_exit><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>362</LINE></delay_busywait_exit>
+  <delay_busywait_loop2><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>352</LINE></delay_busywait_loop2>
+  <delay_busywait_loop3><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>357</LINE></delay_busywait_loop3>
+  <PATTERNS><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>373</LINE></PATTERNS>
+  <WORD00><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>404</LINE></WORD00>
+  <WORD01><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>405</LINE></WORD01>
+  <WORD02><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>406</LINE></WORD02>
+  <WORD03><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>407</LINE></WORD03>
+  <WORD04><FILE>C:\Users\dryd3n\Documents\uvic-csc-230\assignments\assignment 2\assignment 2\a2-signalling.asm</FILE><LINE>408</LINE></WORD04>
  </LABELS>
 </ASSEMBLER_INFO>
