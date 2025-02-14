@@ -31,7 +31,6 @@
     ; initializion code will need to appear in this
     ; section
 
-
     ; --- SET LED's TO OUTPUT ---
     ldi r17, 0b11111111
     sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
@@ -59,7 +58,7 @@
 ; ---- BY MODIFY THE rjmp INSTRUCTION BELOW. --------
 ; -----------------------------------------------------
 
-    rjmp test_part_b
+    rjmp test_part_e
     ; Test code
 
 
@@ -399,10 +398,57 @@ fast_leds:
 
 
 
+
+
+
+
+
+
+
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║       BEGIN LED'S WITH SPEED       ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
+;                                                                                ;
+;    DESCRIPTION:                                                                ;
+;            - Controls the 6 LED's at different speed based on parameter passed ;
+;              to the stack.                                                     ;
+;    PARAMETERS:                                                                 ;
+;            - 1 Byte Pushed to Stack (Which LED's and what speed information)   ;
+;                                                                                ;        
+;    OUTPUT:                                                                     ;
+;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+;                                                                                ;
+;    REGISTERS:                                                                  ;
+;            - R17    (Used as a parameter when calling fast&slow_led)           ;
+;            - R16    (Used to store parameter passed to stack aswell as mask)   ;
+;                                                                                ;
+;================================================================================;
 leds_with_speed:
-    
-    
-    ret
+	; --- INITIALIZATION ---
+	in YH, SPH                 ; Store High Stack Pointer from SRAM Stack Region to Y-High
+	in YL, SPL                 ; Store Low Stack Pointer from SRAM Stack Region to Y-Low
+	ldd R16, Y+4               ; Read function parameter from stack and store in R16
+	mov R17, R16               ; Save stack parameter into R17 for use as a parameter in slow_leds & fast_leds
+
+	; --- BRANCHING ---
+	andi R16, 0b11000000       ; Perform and and mask with the function parameter, result will be 0 if slow configuration is used
+	breq fast                  ; If result of mask was 0, slow configuration is being used, therefore branch to "slow"
+
+	; --- SLOW LED BRANCH ---
+	    CALL slow_leds        ; Call slow_leds routine
+	    ret                    ; Exit out of this routine
+	; --- FAST LED BRANCH ---
+	fast:
+	    CALL fast_leds		   ; Call fast_leds routine
+	    ret                    ; Exit out of this routine
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║       END LED'S WITH SPEED         ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
 
 
 ; Note -- this function will only ever be tested
@@ -413,12 +459,155 @@ leds_with_speed:
 ; in which case it terminates with a code not found
 ; for any legal letter.
 
+
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║        BEGIN ENCODE LETTER         ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
+;                                                                                ;
+;    DESCRIPTION:                                                                ;
+;            - Controls the 6 LED's at different speed based on parameter passed ;
+;              to the stack.                                                     ;
+;    PARAMETERS:                                                                 ;
+;            - 1 Byte Pushed to Stack (Which LED's and what speed information)   ;
+;                                                                                ;        
+;    OUTPUT:                                                                     ;
+;            - R25   (A byte that is valid to execute with LED's with speed)     ;
+;                                                                                ;
+;    REGISTERS:                                                                  ;
+;            - Y     (Stack Pointer to retrieve parameter)                       ;
+;            - R16   (Register to store parameter pointed to by Y)               ;
+;            - Z     (Pointer which traverses through .db table)                 ;
+;            - R17   (Used to hold information loaded from table)                ;
+;            - R18   (Used as a counter while traversin pattern)                 ;
+;                                                                                ;
+;================================================================================;
 encode_letter:
-    ret
+    ; --- INITIALIZATION ---
+; <- Store Stack Pointer in Y then store Parameter from stack pointer in R16 ->
+	in YH, SPH                           ; Store high stack pointer in y-high
+	in YL, SPL                           ; Store low stack pointer in y-low
+	ldd R16, Y+4                         ; Store value / character pushed to stack in R16
+; <- Store Pointer to start of Table in Z ->
+	ldi ZH, high(PATTERNS<<1)            ; Stores the High Byte of the pointer to the start of the table in z-high
+	ldi ZL, low(PATTERNS<<1)             ; Stores the Low Byte of the pointer to the start of the table in z-low
+; <- Ensure output register is clear ->
+	clr R25
+
+	; --- TABLE LOOKUP LOOP ---
+	;	This loop traverses the pattern table one row at a time, comparing each
+	;   letter to the parameter stored in R16. It traverses the table by incrementing
+	;   the pointer Z which starts out pointing to the first piece of data in the table,
+	;   by incrementing the pointer by 8, which is the length of one row, we traverse down
+	;   to the next letter stored at the start of the row, once the letter pointed to by z
+	;   matches the parameter we branch out of the loop. 
+	table_row_traversal:
+	    lpm R17, Z                       ; Z is a pointer to start of table, this loads the first item in table which is the letter
+	    cp R16, R17                      ; Compare letter from table (R17) with letter from parameter (R16)
+	    breq proccess_pattern            ; If the letter from the table and the letter from the parameter match, proceed to next step
+		adiw Z,8                         ; Increase table pointer by 8 bytes since table row is [1 byte (letter) + 6 bytes (pattern) + 1 byte (delay code)] = 8 bytes
+		rjmp table_row_traversal         ; Go back to top of loop
+	
+
+	; --- PROCCESS PATTERN LOOP ---
+	;   This loop increments are table pointer Z each iteration traversing through the pattern in the table
+	;   while each iteration checking if the character in the pattern pointed to by Z is an 'o' or not. If it 
+	;   is we set the rmb of our output to 1. We then LSL our output to the left each iteration, thus if we never
+	;   encounter a 'o' it will just shift left leaving us blank space, if we ecounter 'o' everytime it will shift
+	;   left making the 6 rmb's set. Once we have traversed the entire pattern branch out of the loop
+	; <- Loop Initialization ->
+	proccess_pattern:
+		ldi R18, 0x06
+			.def counter = R18
+    pattern_traversal:
+		adiw Z,1                         ; Increase table pointer by 1, we do this at the start of the loop since currently it is pointing to the first column containing the letter
+		lpm R17, Z						 ; Load the letter from the pattern pointed to by Z into R17
+		cpi R17, 0x6f                    ; Checks if the current letter of the pattern is 'o'
+		brne not_set                     ; Branch if the letter of the pattern is not 'o' indicating the LED should not be set
+			ori R25, 0b00000001          ; Since R25 is clr'd and we lsl it later in the loop this will always set the first bit
+		
+		not_set:                         ; If the current letter in patern pointed to by Z is not 'o' we do not set any bits
+		dec counter                      ; Decrease counter by 1
+		breq proccess_delay              ; If the counter has reached 0, meaning we have traversed the entire pattern then branch out of the loop
+		lsl R25                          ; Shift our current output to the left creating blank space on the left
+		
+		rjmp pattern_traversal           ; Continuing traversing the pattern
+
+	proccess_delay:
+		adiw Z,1                         ; Increment our table pointer Z by 1 so that it is now pointing to the delay code
+		lpm R17, Z                       ; Load the delay code pointed to by Z into R17
+		dec R17                          ; Decrement R17, if it is 1 it will now be 0 and if it is 2 it will now be 1 which lets us test the bit
+		sbrs R17, 0                      ; We do not set the 2 lmb's if R17's rmb is set, i.e the delay code is 2
+		    ori R25, 0b11000000          ; If R17's rmb is clear, it means delay code was 1 so we set the 2 lmb's
+		
+ret
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║         END ENCODE LETTER          ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
 
 
+
+
+
+
+
+
+
+
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║       BEGIN DISPLAY MESSAGE        ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
+;                                                                                ;
+;    DESCRIPTION:                                                                ;
+;            - Displays a word pointed to by R24:R25 using signaling on LED's    ;
+;    PARAMETERS:                                                                 ;
+;            - R25 High byte of pointer pointing to start of word                ;
+;            - R24 Low byte of pointer pointing to start of word                 ;
+;                                                                                ;        
+;    OUTPUT:                                                                     ;
+;            - PORTB (Used for LED's [ ][ ][*][*][*][*])                         ;    
+;            - PORTL (Used for LED's [*][*][ ][ ][ ][ ])                         ;
+;                                                                                ;
+;    REGISTERS:                                                                  ;
+;            - Z     (A pointer used to traverse through the word)               ;
+;            - R18   (Used to store letters accessed through address in Z)       ;
+;                                                                                ;
+;================================================================================;
 display_message_signal:
-    ret
+    ; --- INITIALIZATION ---
+	mov ZL, r24 ; store the low byte of the address in the callee to ZL
+	mov ZH, r25 ; stroe the high byte of the address in the callee to ZH
+
+	display_word_loop:
+	    lpm R18, Z+                ; Increase the pointer traversing the word
+		tst R18                    ; Check if the pointer pointing to a letter in the word is null indiciated we have reached the end of the word
+		breq word_finished         ; Branch if the pointer is pointing to a null character indiciated the word is finished
+
+		; --- ENCODE LETTER ---
+		push R18                   ; Add R18 to the stack as a parameter for encode letter
+		CALL encode_letter        ; Encode the letter  
+		pop R18                    ; Remove R18 from the stack to avoid polluting the stack
+		; --- DISPLAY LETTER ---
+		push R25                   ; Encode letter stores the result in R25 so push into stack as a parameter for display letter
+		CALL leds_with_speed      ; Display the letter
+		pop R25                    ; Remove from stack to avoid polluting the stack
+
+		RJMP display_word_loop     ; Go back to the start of the loop
+
+    word_finished:
+	    ret
+;========================================================================================;
+;                         ╔════════════════════════════════════╗                         ;
+;                         ║        END DISPLAY MESSAGE         ║                         ;                                                                            
+;                         ╚════════════════════════════════════╝                         ;
+;========================================================================================;
+
+
 
 
 ; ****************************************************
