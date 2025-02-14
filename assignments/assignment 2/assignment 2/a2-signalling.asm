@@ -1,9 +1,9 @@
 ; a2-signalling.asm
 ; CSC 230: Spring 2025
 ;
-; Student name:
-; Student ID:
-; Date of completed work:
+; Student name:               Dryden Bryson
+; Student ID:                 V01037593
+; Date of completed work:     February 14th, 2025
 ;
 ; *******************************
 ; Code provided for Assignment #2
