@@ -32,6 +32,22 @@
     ; section
 
 
+	;SET LED's TO OUTPUT
+	ldi r17, 0b11111111
+	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
+	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
+
+
+	sts PORTL, r17;
+	out PORTB, r17;
+
+
+
+	clr r17
+
+	
+
+
 
 ; ***************************************************
 ; **** END OF FIRST "STUDENT CODE" SECTION **********
@@ -50,23 +66,35 @@
 
 
 test_part_a:
+	ldi r16, 0b00111111
+	rcall configure_leds
+	rcall delay_long
+
 	ldi r16, 0b00100001
 	rcall configure_leds
 	rcall delay_long
 
 	clr r16
-	rcall configure_leds
-	rcall delay_long
-
-	ldi r16, 0b00111000
 	rcall configure_leds
 	rcall delay_short
 
-	clr r16
+	ldi r16, 0b00111000
 	rcall configure_leds
 	rcall delay_long
 
+	clr r16
+	rcall configure_leds
+	rcall delay_short
+
 	ldi r16, 0b00100001
+	rcall configure_leds
+	rcall delay_long
+
+	clr r16
+	rcall configure_leds
+	rcall delay_short
+
+	ldi r16, 0b00000111
 	rcall configure_leds
 	rcall delay_long
 
@@ -186,10 +214,6 @@ end:
 
 
 configure_leds:
-	ldi r17, 0b11111111
-	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
-	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
-
 	clr r17
 
 
@@ -212,7 +236,7 @@ configure_leds:
 	sbrc r16, 1
 	ori r17, 0b00001000
 	sbrc r16, 0
-	ori r16, 0b00000010
+	ori r17, 0b00000010
 
 	sts PORTL, r17 
 	clr r17
