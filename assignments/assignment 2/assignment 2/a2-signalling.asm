@@ -32,12 +32,17 @@
     ; section
 
 
-	;SET LED's TO OUTPUT
+	; --- SET LED's TO OUTPUT ---
 	ldi r17, 0b11111111
 	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
 	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
 	clr r17
 
+	; --- INITIALIZE STACK POINTER ---
+	ldi r16, low(RAMEND)
+	out SPL, r16
+	ldi r16, high(RAMEND)
+	out SPH, r16
 	
 
 
@@ -218,55 +223,185 @@ end:
 
 
 
+
+
+
+
+
+
+
+
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?       BEGIN CONFIGURE LED's        ?                          ;																			
+;						 ??????????????????????????????????????							 ;
+;========================================================================================;
+;																				;
+;	DESCRIPTION:																;
+;			- Configures and sets the output of LED's connected via PORTL &		;
+;			  PORTB by interpreting R16 binary's representation to determine	;
+;			  which LED's to turn on/off.										;
+;																				;
+;	PARAMETERS:																	;
+;			- R16   (Where the 6 rightmost bits represents led's to turn on)	;
+;																				;		
+;	OUTPUT:																		;
+;			- PORTB (Used for LED's [ ][ ][*][*][*][*])							;	
+;			- PORTL (Used for LED's [*][*][ ][ ][ ][ ])							;
+;																				;
+;	REGISTERS:																	;
+;			- R17   (Scratch Register to build outputs for PORTB & PORTL)		;
+;																				;
+;================================================================================
 configure_leds:
-	clr r17
+	; --- INITIALIZATION ---
+	clr r17						; Precautionary measure before performing operations
 
+	; --- PORTL MAPPING ---
+	sbrc r16, 5					; Test for LED 6 off, if off skip following instruction
+		ori r17, 0b10000000		; Add bit configuration for [ ][ ][ ][ ][ ][*] to mask
 
-	; check each bit with sbrc in r16, i.e bits 5,4,3,2,1,0
+	sbrc r16, 4					; Test for LED 5 off, if off skip following instruction
+		ori r17, 0b00100000		; Add bit configuration for [ ][ ][ ][ ][*][ ] to mask
 
-	;build r17 to have proper bits set to send to io for PORTB
-	sbrc r16, 5
-	ori r17, 0b10000000
-	sbrc r16, 4
-	ori r17, 0b00100000
-	sbrc r16, 3
-	ori r17, 0b00001000
-	sbrc r16, 2
-	ori r17, 0b00000010
+	sbrc r16, 3					; Test for LED 4 off, if off skip following instruction
+		ori r17, 0b00001000		; Add bit configuration for [ ][ ][ ][*][ ][ ] to mask
 
+	sbrc r16, 2					; Test for LED 3 off, if off skip following instruction
+		ori r17, 0b00000010		; Add bit configuration for [ ][ ][*][ ][ ][ ] to mask
+
+	; --- PORTL OUTPUT ---
 	sts PORTL, r17
 	clr r17
 	
-	;build r16 to have proper bits set to send to io for PORTL
-	sbrc r16, 1
-	ori r17, 0b00001000
-	sbrc r16, 0
-	ori r17, 0b00000010
+	; --- PORTB MAPPING ---
+	sbrc r16, 1					; Test for LED 2 off, if off skip following instruction
+		ori r17, 0b00001000		; Add bit configuration for [ ][*][ ][ ][ ][ ] to mask
 
-	out PORTB, r17 
+	sbrc r16, 0					; Test for LED 1 off, if off skip following instruction
+		ori r17, 0b00000010		; Add bit configuration for [*][ ][ ][ ][*][ ] to mask
+
+	; --- PORTL OUTPUT --- 
+	out PORTB, r17
+	
+	; --- CLEANUP --- 
 	clr r17
 	clr r16
 
 	ret
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?        END CONFIGURE LED's         ?							 ;																					
+;						 ??????????????????????????????????????                          ;
+;========================================================================================;
 
+
+
+
+
+
+
+
+
+
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?         BEGIN SLOW LED's           ?                          ;																			
+;						 ??????????????????????????????????????							 ;
+;========================================================================================;
+;																				;
+;	DESCRIPTION:																;
+;			- Calls configure LED's twice. Initially turns LED's on based on    ;
+;			  contents of R17, then waits a delay_long and turns of the LED's	;
+;																				;
+;	PARAMETERS:																	;
+;			- R17   (Where the 6 rightmost bits represents LED's to turn on)	;
+;																				;		
+;	OUTPUT:																		;
+;			- PORTB (Used for LED's [ ][ ][*][*][*][*])							;	
+;			- PORTL (Used for LED's [*][*][ ][ ][ ][ ])							;
+;																				;
+;	REGISTERS:																	;
+;			- R16	(Used as a parameter when calling configure LED's)   		;
+;																				;
+;================================================================================
 slow_leds:
-	mov r16, r17
-	rcall configure_leds
-	rcall delay_long
-	clr r16
-	rcall configure_leds
+	; --- INITIALIZATION ---
+	mov r16, r17				; Prepare parameter for configure LED's
+
+	; --- TURN ON LED'S ---
+	rcall configure_leds		; Illuminate LED's
+
+	; --- DELAY ---
+	rcall delay_long			; Wait approx 1s
+
+	; --- DISABLE LED'S ---
+	clr r16						; Prepare parameter for configure LED;s
+	rcall configure_leds		; Disable all LED'S
+
+	ret
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?          END SLOW LED's            ?							 ;																			
+;						 ??????????????????????????????????????							 ;
+;========================================================================================;
 
 
+
+
+
+
+
+
+
+
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?         BEGIN FAST LED's           ?                          ;																			
+;						 ??????????????????????????????????????							 ;
+;========================================================================================;
+;																				;
+;	DESCRIPTION:																;
+;			- Calls configure LED's twice. Initially turns LED's on based on    ;
+;			  contents of R17, then waits a delay_short and turns of the LED's	;
+;																				;
+;	PARAMETERS:																	;
+;			- R17   (Where the 6 rightmost bits represents LED's to turn on)	;
+;																				;		
+;	OUTPUT:																		;
+;			- PORTB (Used for LED's [ ][ ][*][*][*][*])							;	
+;			- PORTL (Used for LED's [*][*][ ][ ][ ][ ])							;
+;																				;
+;	REGISTERS:																	;
+;			- R16	(Used as a parameter when calling configure LED's)   		;
+;																				;
+;================================================================================
 fast_leds:
-	mov r16, r17
-	rcall configure_leds
-	rcall delay_short
-	clr r16
-	rcall configure_leds
+	; --- INITIALIZATION ---
+	mov r16, r17				; Prepare parameter for configure LED's
+
+	; --- TURN ON LED'S ---
+	rcall configure_leds		; Illuminate LED's
+
+	; --- DELAY ---
+	rcall delay_short			; Wait approx 0.25s
+
+	; --- DISABLE LED'S ---
+	clr r16						; Prepare parameter for configure LED;s
+	rcall configure_leds		; Disable all LED'S
+
+	ret
+;========================================================================================;
+;						 ??????????????????????????????????????							 ;
+;						 ?          END FAST LED's            ?							 ;																			
+;						 ??????????????????????????????????????							 ;
+;========================================================================================;
 
 
 
 leds_with_speed:
+	
+	
 	ret
 
 
