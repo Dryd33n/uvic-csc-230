@@ -36,13 +36,6 @@
 	ldi r17, 0b11111111
 	sts DDRL, r17  ; Set all bits of DDRL (Data Direction Register L) to output
 	out DDRB, r17  ; Set all bits of DDRB (Data Direction Register B) to output
-
-
-	sts PORTL, r17;
-	out PORTB, r17;
-
-
-
 	clr r17
 
 	
@@ -66,37 +59,49 @@
 
 
 test_part_a:
+
+
 	ldi r16, 0b00111111
 	rcall configure_leds
 	rcall delay_long
 
-	ldi r16, 0b00100001
-	rcall configure_leds
-	rcall delay_long
-
 	clr r16
 	rcall configure_leds
 	rcall delay_short
 
-	ldi r16, 0b00111000
-	rcall configure_leds
-	rcall delay_long
-
-	clr r16
+	ldi r16, 0b00100000
 	rcall configure_leds
 	rcall delay_short
-
-	ldi r16, 0b00100001
-	rcall configure_leds
-	rcall delay_long
-
-	clr r16
+	ldi r16, 0b00010000
 	rcall configure_leds
 	rcall delay_short
-
-	ldi r16, 0b00000111
+	ldi r16, 0b00001000
 	rcall configure_leds
-	rcall delay_long
+	rcall delay_short
+	ldi r16, 0b00000100
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00000010
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00000001
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00000010
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00000100
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00001000
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00010000
+	rcall configure_leds
+	rcall delay_short
+	ldi r16, 0b00100000
+	rcall configure_leds
+	rcall delay_short
 
 	clr r16
 	rcall configure_leds
@@ -229,7 +234,7 @@ configure_leds:
 	sbrc r16, 2
 	ori r17, 0b00000010
 
-	out PORTB, r17
+	sts PORTL, r17
 	clr r17
 	
 	;build r16 to have proper bits set to send to io for PORTL
@@ -238,7 +243,7 @@ configure_leds:
 	sbrc r16, 0
 	ori r17, 0b00000010
 
-	sts PORTL, r17 
+	out PORTB, r17 
 	clr r17
 	clr r16
 
