@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega2560"</DEVICE>
+ <WORKING_DIR>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m2560def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\Debug\Lab3.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lab3.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lab3.map</FILE>
+  <FILE>Lab3.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <loop><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>8</LINE></loop>
+  <l1><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>14</LINE></l1>
+  <l2><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>15</LINE></l2>
+  <l3><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>16</LINE></l3>
+  <x1><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>28</LINE></x1>
+  <x2><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>29</LINE></x2>
+  <x3><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>30</LINE></x3>
+  <done><FILE>C:\Users\dryd3n\Desktop\Lab 3\Lab3\Lab3\blink.asm</FILE><LINE>38</LINE></done>
+ </LABELS>
+</ASSEMBLER_INFO>
