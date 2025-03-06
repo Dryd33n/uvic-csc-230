@@ -110,7 +110,7 @@
 ;            - Halt program execution for 1 second                               ;
 ;    PARAMETERS:                                                                 ;
 ;            - Assumes OCR3A is set with proper top value for delay              ;
-             - Assumes TCCR3A is set with proper configuration for CTC mode      ;
+;            - Assumes TCCR3A is set with proper configuration for CTC mode      ;
 ;                                                                                ;        
 ;    OUTPUT:                                                                     ;
 ;            - TCCR3B Holds the configuration for CTC mode and prescaler         ;    
