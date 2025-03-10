@@ -5,7 +5,7 @@
 - Reset Rightmost Contiguous bit sequence
 - Manually perform two's complement conversion
 
-## [Assignment 2](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%202/assignment%202)
+## [Assignment 2](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%202/assignment%202) 20/20
 **Topics Covered**: Pseudo registers, pointer manipulation, I/O port manipulation, subroutine calls and explicit stack use
 - LED Manipulation through I/O Ports
 - Encoding information from table using pointers
