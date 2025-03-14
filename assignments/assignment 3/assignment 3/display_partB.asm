@@ -1,5 +1,7 @@
 .org 0
 	rjmp start
+.org 0x002A        ; Timer1 Compare A interrupt vector
+    jmp timer1_isr
 
 #define LCD_LIBONLY
 .include "lcd.asm"
@@ -13,8 +15,7 @@ start:
     .equ CLOCK     = 16000000
     .equ PRESCALER = 1024
     .equ DELAY     = 1
-    ;.equ TOP       = int(0.5+((CLOCK/PRESCALER)*(DELAY)))
-	.equ TOP = 2000
+    .equ TOP       = int(0.5+((CLOCK/PRESCALER)*(DELAY)))
 
     ; <-- INITIALIZE STACK POINTER -->
     ldi r16, low(RAMEND)   ; Get RAMEND Low
@@ -24,44 +25,54 @@ start:
 
     ; <-- INITIALIZE TIMER -->
     rcall timer_init
+	rcall timer1_init
+	cli
 
     call lcd_init			; call lcd_init to Initialize the LCD
 	call lcd_clr
-    ;call init_string1                   ; load strings into data memory
+
+	clr r20
+	clr r21
+	ldi r22, 0b00000011
 
 
 ;                         ╔════════════════════════════════════╗                         ;
 ;                         ║        MAIN EXECUTION LOOP         ║                         ;                                                                            
 ;                         ╚════════════════════════════════════╝                         ;
-	ldi r20, 0
+	
 
 
     ; <-- ENTER MAIN LOOP -->
     loop:
-	; -- DISPLAY BOTH LINES --
-	rcall display_line1_rotated
-	rjmp end
+		; -- DISPLAY BOTH LINES --
+		cli
+		call lcd_clr
+		clr r22
+		ori r22, 0b00000011
+		rcall display_line1_rotated
+		rcall display_line2_rotated
+		sei
+        rcall delay_1s
+
+	; -- DISPLAY FIRST LINE --
+		cli
+        call lcd_clr
+        clr r22
+		ori r22, 0b00000001
+		rcall display_line1_rotated
+		sei
+        rcall delay_1s
+
+	; -- DISPLAY SECOND LINE --
+		cli	
+        call lcd_clr
+        clr r22
+		ori r22, 0b00000010
+		rcall display_line2_rotated
+		sei
+        rcall delay_1s
 
         rjmp loop
-
-	test:
-		ldi r16, 0
-		push r16
-		ldi r16, 0
-		push r16
-		call lcd_gotoxy
-		pop r16
-		pop r16
-
-		ldi ZH, high(msg1_p << 1) ; this is the 
-		ldi ZL, low(msg1_p << 1)
-		lpm r16, Z
-		push r16
-		call lcd_putchar
-		pop r16
-		rjmp end
-	
-
 
 	end:
 		rjmp end
@@ -117,8 +128,66 @@ start:
 ;========================================================================================;
 
 
+	timer1_init:
+		push r16
+		; Configure Timer1 for CTC mode
+		ldi r16, 0x00
+		sts TCCR1A, r16          ; WGM11:10 = 00 (part of CTC mode)
+
+		; Set prescaler to 64 and CTC mode (WGM12 = 1)
+		ldi r16, (1<<WGM12) | (1<<CS12) | (1<<CS10)
+		sts TCCR1B, r16
+
+		; Set OCR1A to 24999 (0x61A7) for 100ms interrupt
+		ldi r16, high(9000)
+		sts OCR1AH, r16          ; High byte
+		ldi r16, low(9000)
+		sts OCR1AL, r16          ; Low byte
+
+		; Enable Timer1 Compare A interrupt
+		ldi r16, (1<<OCIE1A)
+		sts TIMSK1, r16
+
+		pop r16
+
+		ret                      ; Return from subroutine
 
 
+
+timer1_isr:
+	cli
+	
+	sbrs r22, 0				; Determine if configuration register is set to display first line
+		rjmp skip_line_1    ; Do not skip if configuration says display line 1
+
+	inc r20
+	line_1_offset_modulo:
+		cpi r20, msg1_length
+		brlo display_first_line
+		subi r20, msg1_length
+		rjmp line_1_offset_modulo
+
+	display_first_line:
+		rcall display_line1_rotated
+
+	skip_line_1:
+
+	sbrs r22, 1			; Determine if configuration register is set to display seceond line
+	rjmp skip_line_2    ; Do not skip if configuration says display line 2
+
+	inc r21
+	line_2_offset_modulo:
+		cpi r21, msg2_length
+		brlo display_second_line
+		subi r21, msg2_length
+		rjmp line_2_offset_modulo
+	
+	display_second_line:
+		rcall display_line2_rotated
+
+	skip_line_2:
+	sei
+	reti
 
 
 
@@ -127,6 +196,12 @@ start:
 	;	R16, R20, R23, R22 
 	;
 display_line1_rotated:
+	; <-- PROTECT REGISTERS -->
+	push r16
+	push r20
+	push r22
+	push r23
+
 	;<-- INITIALIZE Z POINTER TO START OF STRING -->
 	ldi ZH, high(msg1_p << 1) ; Set ZH to High byte of string start 
 	ldi ZL, low(msg1_p << 1)  ; Set ZL to Low byte of string start
@@ -153,7 +228,7 @@ display_line1_rotated:
 		; Check if we've done 16 iterations
 		ldi r23, 16      ; Load 16 into r23
 		cp r22, r23      ; Compare the iteration counter (R22) with 16
-		brge end
+		brge put_string1_end
 
 		lpm R23, Z							; load string from program memory
 
@@ -173,9 +248,76 @@ display_line1_rotated:
 
 		rjmp put_string1_loop               ; If not go back to loop
 
+	put_string1_end:
+		; <-- RESTORE REGISTERS -->	
+		pop r23
+		pop r22
+		pop r20
+		pop r16
 		ret
 
-	put_string1_end:
+
+display_line2_rotated:
+	; <-- PROTECT REGISTERS -->
+	push r16
+	push r21
+	push r22
+	push r23
+
+	;<-- INITIALIZE Z POINTER TO START OF STRING -->
+	ldi ZH, high(msg2_p << 1) ; Set ZH to High byte of string start 
+	ldi ZL, low(msg2_p << 1)  ; Set ZL to Low byte of string start
+	clr r16                    ; Clear r0 for safety
+
+	;<-- INCREMENT Z POINTER BY OFFSET PARAMETER -->
+	ADD ZL, r21     ; Add the low byte of R21 to ZL
+	ADC ZH, r16      ; Add the carry to ZH
+
+
+	; <-- Move Cursor to Origin -->
+	ldi r16, 0x01   ; Load Y-Position
+	push r16        ; Push Y-Position
+	ldi r16, 0x00
+	push r16        ; Push X-Position
+	call lcd_gotoxy ; Move cursor to origin
+	pop r16         ; Pop X parameter
+	pop r16         ; Pop Y parameter
+
+	; <-- Initialize Values -->
+	clr r16
+	clr r22
+
+	put_string2_loop:
+		; Check if we've done 16 iterations
+		ldi r23, 16      ; Load 16 into r23
+		cp r22, r23      ; Compare the iteration counter (R22) with 16
+		brge put_string2_end
+
+		lpm R23, Z							; load string from program memory
+
+		cpi R23, 0                          ; Check for string null terminator
+		brne skip_string2_reset             ; Skip following two lines if null terminator is not found
+				ldi ZH, high(msg2_p << 1)   ; Move string pointer back to the start of the string
+				ldi ZL, low(msg2_p << 1)    ; Move string pointer back to the start of the string
+				rjmp put_string1_loop
+		skip_string2_reset:
+
+		push R23                            ; Add char to stack
+		call lcd_putchar                    ; Send char to Display
+		pop R23 
+
+		adiw Z, 1                           ; Increment string poisition pointer
+		inc r22
+
+		rjmp put_string2_loop               ; If not go back to loop
+
+	put_string2_end:
+		; <-- RESTORE REGISTERS -->	
+		pop r23
+		pop r22
+		pop r20
+		pop r16
+		ret
 
 		
 
@@ -239,105 +381,10 @@ display_line1_rotated:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-display_line1:
-    push r16
-
-
-	ldi r16, 0x00
-	push r16
-	ldi r16, 0x00
-	push r16
-	call lcd_gotoxy
-	pop r16
-	pop r16
-
-	; Now display msg1 on the first line
-	ldi r16, high(msg1)
-	push r16
-	ldi r16, low(msg1)
-	push r16
-	call lcd_puts
-	pop r16
-	pop r16
-
-    pop r16
-	ret
-
-display_line2:
-    push r16
-
-    	ldi r16, 0x01
-	push r16
-	ldi r16, 0x00
-	push r16
-	call lcd_gotoxy
-	pop r16
-	pop r16
-
-	; Now display msg2 on the second line
-	ldi r16, high(msg2)
-	push r16
-	ldi r16, low(msg2)
-	push r16
-	call lcd_puts
-	pop r16
-	pop r16
-
-    pop r16
-	ret
-
-init_string1:
-	push r16
-	; copy strings from program memory to data memory
-	ldi r16, high(msg1)		; this the destination
-	push r16
-	ldi r16, low(msg1)
-	push r16
-	ldi r16, high(msg1_p << 1) ; this is the source
-	push r16
-	ldi r16, low(msg1_p << 1)
-	push r16
-	call str_init			; copy from program to data
-	pop r16					; remove the parameters from the stack
-	pop r16
-	pop r16
-	pop r16
-	pop r16
-	ret
-
-
-init_string2:
-	push r16
-	ldi r16, high(msg2)
-	push r16
-	ldi r16, low(msg2)
-	push r16
-	ldi r16, high(msg2_p << 1)
-	push r16
-	ldi r16, low(msg2_p << 1)
-	push r16
-	call str_init
-	pop r16
-	pop r16
-	pop r16
-	pop r16
-
-	pop r16
-	ret
-
 msg1_p:	.db "Dryden Bryson  ", 0	
-msg2_p: .db "CSC 230: Spring  ", 0
+.equ msg1_length = 15
+msg2_p: .db "CSC 230: Spring 2025  ", 0
+.equ msg2_length = 22
 
 .dseg
 ;
