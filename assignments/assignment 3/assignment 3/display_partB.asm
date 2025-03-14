@@ -1,6 +1,7 @@
 .org 0
 	rjmp start
 
+#define LCD_LIBONLY
 .include "lcd.asm"
 
 .cseg
@@ -12,7 +13,8 @@ start:
     .equ CLOCK     = 16000000
     .equ PRESCALER = 1024
     .equ DELAY     = 1
-    .equ TOP       = int(0.5+(CLOCK/PRESCALER*DELAY))
+    ;.equ TOP       = int(0.5+((CLOCK/PRESCALER)*(DELAY)))
+	.equ TOP = 2000
 
     ; <-- INITIALIZE STACK POINTER -->
     ldi r16, low(RAMEND)   ; Get RAMEND Low
@@ -21,28 +23,48 @@ start:
     out SPH, r16           ; Initialize Stack Pointer High
 
     ; <-- INITIALIZE TIMER -->
-    ;rcall timer_init
+    rcall timer_init
 
     call lcd_init			; call lcd_init to Initialize the LCD
-    call init_string1                   ; load strings into data memory
+	call lcd_clr
+    ;call init_string1                   ; load strings into data memory
 
 
 ;                         ╔════════════════════════════════════╗                         ;
 ;                         ║        MAIN EXECUTION LOOP         ║                         ;                                                                            
 ;                         ╚════════════════════════════════════╝                         ;
-	ldi r21, 0
+	ldi r20, 0
 
 
     ; <-- ENTER MAIN LOOP -->
     loop:
 	; -- DISPLAY BOTH LINES --
-
 	rcall display_line1_rotated
+	rjmp end
 
         rjmp loop
 
+	test:
+		ldi r16, 0
+		push r16
+		ldi r16, 0
+		push r16
+		call lcd_gotoxy
+		pop r16
+		pop r16
+
+		ldi ZH, high(msg1_p << 1) ; this is the 
+		ldi ZL, low(msg1_p << 1)
+		lpm r16, Z
+		push r16
+		call lcd_putchar
+		pop r16
+		rjmp end
+	
 
 
+	end:
+		rjmp end
 
 
 
@@ -70,6 +92,10 @@ start:
 ;                                                                                ;
 ;================================================================================;
     timer_init:
+		; <-- PROTECT REGISTERS -->
+		push r16
+		push r17
+
         ; <-- SET TOP VALUE -->
         ldi r16,     high(TOP)        ; Load High value of TOP
         ldi r17,     low(TOP)         ; Load Low value of TOP
@@ -79,6 +105,10 @@ start:
         ; <-- DISABLE PWM MODE -->
         ldi r16, 0                    ; Load 0 as configuration for PWM 
         sts TCCR3A, temp              ; Set 0 as configuration for PWM
+
+		; <-- RESTORE REGISTERS -->
+		pop r17
+		pop r16
     ret   
 ;========================================================================================;
 ;                         ╔════════════════════════════════════╗                         ;
@@ -93,52 +123,60 @@ start:
 
 
 	;PARAMETERS, R20 - Rotate Left Amount
+	; REGISTERS
+	;	R16, R20, R23, R22 
+	;
 display_line1_rotated:
-	ldi ZH, high(msg1_p << 1) ; this is the 
-	ldi ZL, low(msg1_p << 1)
-	ADD ZL, r21     ; Add the low byte of R21 to r27 (low byte of X)
-	ADC ZH, r0      ; Add the carry to r26 (high byte of X)
+	;<-- INITIALIZE Z POINTER TO START OF STRING -->
+	ldi ZH, high(msg1_p << 1) ; Set ZH to High byte of string start 
+	ldi ZL, low(msg1_p << 1)  ; Set ZL to Low byte of string start
+	clr r16                    ; Clear r0 for safety
 
-	ldi r18, 0x00
-	push r18
-	ldi r16, 0x00
-	push r16
-	call lcd_gotoxy
-	pop r16
-	pop r18
+	;<-- INCREMENT Z POINTER BY OFFSET PARAMETER -->
+	ADD ZL, r20     ; Add the low byte of R20 to ZL
+	ADC ZH, r16      ; Add the carry to ZH
 
-	push r16
+
+	; <-- Move Cursor to Origin -->
+	ldi r16, 0x00   ; Load Y-Position
+	push r16        ; Push Y-Position
+	push r16        ; Push X-Position
+	call lcd_gotoxy ; Move cursor to origin
+	pop r16         ; Pop X parameter
+	pop r16         ; Pop Y parameter
+
+	; <-- Initialize Values -->
 	clr r16
-	clr r18
+	clr r22
 
 	put_string1_loop:
-		lpm R17, Z
+		; Check if we've done 16 iterations
+		ldi r23, 16      ; Load 16 into r23
+		cp r22, r23      ; Compare the iteration counter (R22) with 16
+		brge end
 
-		cpi R17, 0
-		brne skip_string1_reset
-				ldi ZH, high(msg1_p << 1) ; this is the 
-				ldi ZL, low(msg1_p << 1)
+		lpm R23, Z							; load string from program memory
+
+		cpi R23, 0                          ; Check for string null terminator
+		brne skip_string1_reset             ; Skip following two lines if null terminator is not found
+				ldi ZH, high(msg1_p << 1)   ; Move string pointer back to the start of the string
+				ldi ZL, low(msg1_p << 1)    ; Move string pointer back to the start of the string
+				rjmp put_string1_loop
 		skip_string1_reset:
 
-		push R17
-		call lcd_putchar
-		pop R17
+		push R23                            ; Add char to stack
+		call lcd_putchar                    ; Send char to Display
+		pop R23 
 
-		inc r16
-		adiw Z, 1
+		adiw Z, 1                           ; Increment string poisition pointer
+		inc r22
 
-		push r18
-		push r16
-		call lcd_gotoxy
-		pop r16
-		pop r18
+		rjmp put_string1_loop               ; If not go back to loop
 
+		ret
 
+	put_string1_end:
 
-		
-
-		cpi r16, 16
-		brne put_string1_loop
 		
 
 
@@ -298,8 +336,8 @@ init_string2:
 	pop r16
 	ret
 
-msg1_p:	.db "Dryden Bryson", 0	
-msg2_p: .db "CSC 230: Spring", 0
+msg1_p:	.db "Dryden Bryson  ", 0	
+msg2_p: .db "CSC 230: Spring  ", 0
 
 .dseg
 ;
