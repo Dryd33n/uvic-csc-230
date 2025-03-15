@@ -39,17 +39,6 @@ start:
 ;                         ??????????????????????????????????????                         ;
 ;                         ?        MAIN EXECUTION LOOP         ?                         ;                                                                            
 ;                         ??????????????????????????????????????                         ;
-
-	test:
-			cli
-		call lcd_clr
-		clr r22
-		ori r22, 0b00000011
-		rcall display_line1_rotated
-		rcall display_line2_rotated
-		sei
-	rjmp test
-
     ; <-- ENTER MAIN LOOP -->
     loop:
 	; -- DISPLAY BOTH LINES --
@@ -126,9 +115,9 @@ start:
 		sts TCCR1B, r16                             ; Set value for prescaler and CTC mode
 
 		; <-- TOP VALUE -->
-		ldi r16, high(9000)			    ; Get high byte of top value
+		ldi r16, high(5000)			    ; Get high byte of top value
 		sts OCR1AH, r16                             ; Set high byte of top value
-		ldi r16, low(9000)                          ; Get low byte of top value
+		ldi r16, low(5000)                          ; Get low byte of top value
 		sts OCR1AL, r16				    ; Set low byte of top value
 
 		; < -- ENABLE INTERRUPT --> 
@@ -184,6 +173,7 @@ timer1_isr:
 ;                         ??????????????????????????????????????                         ;
 ;========================================================================================;
 scroll_lines_left:
+cli
 			sbrs r22, 0	            ; Determine if configuration register is set to display first line
 		rjmp skip_line_1    ; Do not skip if configuration says display line 1
 
@@ -213,43 +203,43 @@ scroll_lines_left:
 		rcall display_line2_rotated ; Display rotated line 2 with offset r21
 
 	skip_line_2:
+	sei
 	ret
 
 
 
 
 scroll_lines_right:
-    sbrs r22, 0              ; Determine if configuration register is set to display first line
-    rjmp skip_line_1_r         ; Do not skip if configuration says display line 1
+cli
+	sbrs r22, 0	            ; Determine if configuration register is set to display first line
+	rjmp skip_line_1_r    ; Do not skip if configuration says display line 1
 
-    dec r20                  ; Decrement r20 (scroll to the right)
-    line_1_offset_modulo_r:    ; Perform a modulo operation on r20 with divisor msg1_length
-        cpi r20, 0           ; Check if the offset for line 1 is less than 0
-        brge display_first_line_r ; If it is not negative, exit the loop
-		ldi r16, msg1_length
-        add r20, r16 ; If it is negative, add msg1_length to wrap around
-        rjmp line_1_offset_modulo_r ; Go back to start of loop
+	rcall display_line1_rotated
 
-    display_first_line_r:
-        rcall display_line1_rotated ; Display the rotated line 1 with offset r20
+	dec r20				; Increment r20
+	tst r20
+	brpl skip_line_1_r	    ; If it is not exit from the loop
+	ldi r20, msg1_length
+	dec r20
 
-    skip_line_1_r:
 
-    sbrs r22, 1              ; Determine if configuration register is set to display second line
-    rjmp skip_line_2_r         ; Do not skip if configuration says display line 2
+	skip_line_1_r:
 
-    dec r21                  ; Decrement r21 (scroll to the right)
-    line_2_offset_modulo_r:    ; Perform a modulo operation on r21 with divisor msg2_length
-        cpi r21, 0           ; Check if the offset for line 2 is less than 0
-        brge display_second_line_r ; If it is not negative, exit the loop
-		ldi r16, msg2_length
-        add r21, r16 ; If it is negative, add msg2_length to wrap around
-        rjmp line_2_offset_modulo_r ; Go back to start of loop
+	sbrs r22, 1         ; Determine if configuration register is set to display seceond line
+	rjmp skip_line_2_r    ; Do not skip if configuration says display line 2
 
-    display_second_line_r:
-        rcall display_line2_rotated ; Display rotated line 2 with offset r21
+	rcall display_line2_rotated ; Display rotated line 2 with offset r21
 
-    skip_line_2_r:
+	dec r21                         ; Increment r21
+
+	tst r21
+	brpl skip_line_2_r    ; If the offset is smaller exit the loop
+	ldi r21, msg2_length
+	dec r21
+		
+
+	skip_line_2_r:
+	sei
     ret
 
 
@@ -566,6 +556,7 @@ display_line2_rotated:
 
 msg1_p:	.db "Dryden Bryson  ", 0	
 .equ msg1_length = 15
+spacing:	.db "Dryden Bryson  ", 0	
 msg2_p: .db "CSC 230: Spring 2025  ", 0
 .equ msg2_length = 22
 
