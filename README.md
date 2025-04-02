@@ -13,13 +13,13 @@
 
 ## [Assignment 3](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%203/assignment%203)
 **Topics Covered:** Register and pointer manipulation, library use, interrupts avr timers
--Display scrolling messages on LCD
--Control display using avr timers
--Control display using buttons
+- Display scrolling messages on LCD
+- Control display using avr timers
+- Control display using buttons
 
 ## [Assignment 4](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%204/Assignment4)
 **Topics Covered:** AVR programming in C, LCD displays, AVR timers
--Display stopwatch on LCD
--Control stopwatch with buttons
--Programming in C for AVR
+- Display stopwatch on LCD
+- Control stopwatch with buttons
+- Programming in C for AVR
 
