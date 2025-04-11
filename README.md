@@ -11,7 +11,7 @@
 - Encoding information from table using pointers
 - Functional programming
 
-## [Assignment 3](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%203/assignment%203)
+## [Assignment 3](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%203/assignment%203) 20/20
 **Topics Covered:** Register and pointer manipulation, library use, interrupts avr timers
 - Display scrolling messages on LCD
 - Control display using avr timers
