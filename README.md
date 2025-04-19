@@ -17,7 +17,7 @@
 - Control display using avr timers
 - Control display using buttons
 
-## [Assignment 4](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%204/Assignment4)
+## [Assignment 4](https://github.com/Dryd33n/uvic-csc-230/tree/main/assignments/assignment%204/Assignment4) 10/10
 **Topics Covered:** AVR programming in C, LCD displays, AVR timers
 - Display stopwatch on LCD
 - Control stopwatch with buttons
